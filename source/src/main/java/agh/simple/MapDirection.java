@@ -1,4 +1,4 @@
-package agh.enums;
+package agh.simple;
 
 import agh.Vector2d;
 

@@ -1,14 +1,13 @@
 package agh;
 
-import agh.enums.MapDirection;
+import agh.simple.MapDirection;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static agh.enums.MapDirection.NORTH;
+import static agh.simple.MapDirection.NORTH;
 
-public class Animal {
+public class Animal implements MapElement {
     private Vector2d position;
     private MapDirection direction = NORTH;
     private final int birthDate = 0;
@@ -20,6 +19,10 @@ public class Animal {
     public Animal(Vector2d position){
         this.position = position;
         this.genes = new NormalGenes();
+    }
+
+    public Vector2d getPosition() {
+        return position;
     }
 
     public Genes getGenes() {
