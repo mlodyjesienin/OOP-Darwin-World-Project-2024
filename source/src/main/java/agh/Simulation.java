@@ -8,12 +8,14 @@ import java.util.Map;
 public class Simulation implements Runnable{
     private WorldMap worldMap;
 
-    Simulation(int geneVariant, int mapVariant){
+    Simulation(int geneVariant, int mapVariant, int mapHeight, int mapWidth, int startPlants, int PlantsCount,
+               int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
+               int minMutation, int geneSize){
         AnimalGeneration animalGeneration = new AnimalGeneration(geneVariant);
         PlantGeneration plantGeneration = new PlantGeneration();
         Map<Vector2d, List<Animal>> animals = animalGeneration.generate();
         Map<Vector2d,Plant> plants = plantGeneration.generate();
-        this.worldMap = new MapInitialization(mapVariant,animals,plants);
+        MapInitialization mapInitialization =  new MapInitialization(mapVariant,animals,plants);
 
     }
     @Override

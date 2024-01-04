@@ -9,6 +9,11 @@ public class MapInitialization {
     MapInitialization(int mapVariant, Map<Vector2d, List<Animal>> animals, Map<Vector2d,Plant> plants){
             this.animals = animals;
             this.plants = plants;
+
+    }
+
+    public WorldMap initialize(){
+        return new WorldMap(animals, plants);
     }
 
 }

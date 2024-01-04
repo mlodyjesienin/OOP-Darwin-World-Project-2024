@@ -2,9 +2,7 @@ package agh;
 
 public abstract class DayCare {
     private int dayCount = 0;
-    private WorldMap map;
-    DayCare(WorldMap map){this.map = map;}
-
+    protected WorldMap worldMap;
 
     abstract void move();
     private void consumePlants(){
