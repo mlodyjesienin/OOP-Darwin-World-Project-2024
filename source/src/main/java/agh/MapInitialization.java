@@ -12,8 +12,6 @@ public class MapInitialization {
 
     }
 
-    public WorldMap initialize(){
-        return new WorldMap(animals, plants);
-    }
+
 
 }

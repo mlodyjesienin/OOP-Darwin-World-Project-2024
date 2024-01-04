@@ -1,19 +1,27 @@
 package agh;
 
+import agh.simple.Boundary;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlantGeneration {
-    PlantGeneration(){};
+    Map<Vector2d,Plant> plants = new HashMap<>();
+    PlantGeneration(Boundary boundary, int startPlants){
+        int maxWidth = boundary.upperCorner().getX();
+        int maxHeight = boundary.upperCorner().getY();
+        RandomPositionGenerator randomPlantsPosition = new RandomPositionGenerator(maxWidth,maxHeight,startPlants);
+        generate(randomPlantsPosition);
+    };
 
-    public Map<Vector2d,Plant> generate(){
-        Vector2d position1 = new Vector2d(1,2);
-        Vector2d position2 = new Vector2d(2,1);
-        Plant plant1 = new Plant(position1);
-        Plant plant2 = new Plant(position2);
-        Map<Vector2d,Plant> plants= new HashMap<>();
-        plants.put(position1,plant1);
-        plants.put(position2,plant2);
+    public void generate(RandomPositionGenerator randomPlantsPosition){
+        for(Vector2d position: randomPlantsPosition){
+            Plant singlePlant = new Plant(position);
+            plants.put(position,singlePlant);
+        }
+    }
+
+    public Map<Vector2d, Plant> getPlants() {
         return plants;
     }
 }

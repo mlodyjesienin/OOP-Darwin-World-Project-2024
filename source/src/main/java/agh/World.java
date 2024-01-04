@@ -1,10 +1,13 @@
 package agh;
 
+import java.util.*;
+
 public class World {
+
     public static void main(String[] args){
-        System.out.println("Hello World!");
-        Animal animal1 = new Animal(new Vector2d(1,1));
-        System.out.println(animal1.getGenes());
+        Simulation simulation = new Simulation(0,0,10,20,10,10,
+                15,36,3,3,3,3,4);
+
 
     }
 }
