@@ -29,7 +29,6 @@ public class Simulation extends Observable implements Runnable {
 
         this.dayCare = new DayCare(mapVariant, worldMap,plantsCount,energyRequirements,energyRequirements,
                 maxMutation,minMutation, energyLoss,energyGain);
-        drawMap(dayCare);
 
     }
 
@@ -37,13 +36,13 @@ public class Simulation extends Observable implements Runnable {
         WorldMap worldMap = dayCare.worldMap;
         Map<Vector2d, List<Animal>> animals = worldMap.getAnimals();
         Map<Vector2d,Plant> plants = worldMap.getPlants();
-        System.out.println("ANIMALS:");
+        System.out.println("ANIMALS:" + animals.size());
         for(Map.Entry<Vector2d, List<Animal>> entry: animals.entrySet()){
             Vector2d position = entry.getKey();
             List<Animal> animalEntry = entry.getValue();
             System.out.println(position + " " + animalEntry);
         }
-        System.out.println("PLANTS:");
+        System.out.println("PLANTS:" + plants.size());
         for(Map.Entry<Vector2d, Plant> entry: plants.entrySet()){
             Vector2d position = entry.getKey();
             Plant plant = entry.getValue();
@@ -53,23 +52,11 @@ public class Simulation extends Observable implements Runnable {
 
     @Override
     public void run() {
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
-        dayCare.simulateDay();
-        drawMap(dayCare);
+        for(int i=0; i<50; i ++) {
+            System.out.println("DAY: " + dayCare.getDayCount());
+            dayCare.simulateDay();
+            drawMap(dayCare);
+        }
+
     }
 }

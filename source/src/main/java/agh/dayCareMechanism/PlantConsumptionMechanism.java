@@ -14,10 +14,11 @@ public class PlantConsumptionMechanism {
     private Map<Vector2d, List<Animal>> animals;
     private Map<Vector2d, Plant> plants;
     private final int energyGain;
-
-    PlantConsumptionMechanism(WorldMap worldMap, int energyGain){
+    private final PlantGrowthMechanism plantGrowthMechanism;
+    PlantConsumptionMechanism(WorldMap worldMap, int energyGain, PlantGrowthMechanism plantGrowthMechanism){
         this.worldMap = worldMap;
         this.energyGain = energyGain;
+        this.plantGrowthMechanism = plantGrowthMechanism;
     }
 
     public void work(){
@@ -35,7 +36,7 @@ public class PlantConsumptionMechanism {
                 else{
                     animal = animalList.get(0);
                 }
-                consume(animal);
+                consume(animal,plant);
             }
             else{
                 newPlants.put(plant.getPosition(),plant);
@@ -46,8 +47,9 @@ public class PlantConsumptionMechanism {
 
     }
 
-    void consume(Animal animal){
+    void consume(Animal animal, Plant plant){
         animal.setEnergy(animal.getEnergy() + energyGain);
+        plantGrowthMechanism.addAvailablePosition(plant.getPosition());
     }
     private Animal resolveConflict(List<Animal> animalList) {
         Animal bestAnimal = animalList.get(0);

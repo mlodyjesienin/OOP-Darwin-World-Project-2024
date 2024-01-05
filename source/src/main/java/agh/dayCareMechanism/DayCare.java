@@ -22,8 +22,8 @@ public class DayCare {
                     energyReproduce, maxMutation, minMutation);
         }
 
-        plantConsumptionMechanism = new PlantConsumptionMechanism(worldMap, energyGain);
         plantGrowthMechanism = new PlantGrowthMechanism(worldMap,plantsCount);
+        plantConsumptionMechanism = new PlantConsumptionMechanism(worldMap, energyGain, plantGrowthMechanism);
 
 
     }
