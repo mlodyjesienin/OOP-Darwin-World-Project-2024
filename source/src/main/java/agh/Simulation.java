@@ -63,5 +63,13 @@ public class Simulation extends Observable implements Runnable {
         drawMap(dayCare);
         dayCare.simulateDay();
         drawMap(dayCare);
+        dayCare.simulateDay();
+        drawMap(dayCare);
+        dayCare.simulateDay();
+        drawMap(dayCare);
+        dayCare.simulateDay();
+        drawMap(dayCare);
+        dayCare.simulateDay();
+        drawMap(dayCare);
     }
 }

@@ -3,7 +3,7 @@ package agh.dayCareMechanism;
 import agh.WorldMap;
 
 public class DayCare {
-    public int dayCount = 0;
+    private int dayCount = 0;
     private final MovingMechanism movingMechanism;
     private final PlantConsumptionMechanism plantConsumptionMechanism;
     private final PlantGrowthMechanism plantGrowthMechanism;
@@ -27,6 +27,8 @@ public class DayCare {
 
 
     }
+
+    public int getDayCount() {return dayCount;}
 
     public void simulateDay(){
         dayCount++;

@@ -7,15 +7,16 @@ import java.util.Set;
 import java.util.UUID;
 
 import static agh.simple.MapDirection.NORTH;
+import static java.util.Objects.hash;
 
 public class Animal implements MapElement {
     private final UUID animalID = UUID.randomUUID();
-    public Vector2d position;
-    public MapDirection direction = NORTH;
+    private Vector2d position;
+    private MapDirection direction = NORTH;
     private final int birthDate;
     private Integer deathDate = null;
-    private final Set<Animal> kids = new HashSet<>();
-    public int energy;
+    private final Set<Animal> children = new HashSet<>();
+    private int energy;
     private final Genes genes;
 
     public Animal(Vector2d position, int birthDate, int energy, Genes genes){
@@ -47,13 +48,23 @@ public class Animal implements MapElement {
 
     public boolean isDead() {return !(deathDate == null); }
 
+    public void setDirection(MapDirection direction) {this.direction = direction;}
+
+    public void setEnergy(int energy) {this.energy = energy;}
+
+    public void setPosition(Vector2d position) {this.position = position;}
+    public void addChild(Animal animal){children.add(animal);}
+
     @Override
     public boolean equals(Object other) {
         if (this == other)
             return true;
         if (!(other instanceof Animal))
             return false;
-        return ((Animal) other).getAnimalID() == this.animalID;
+        return ((Animal) other).getAnimalID() == animalID;
+    }
+    public int hashCode() {
+        return hash(animalID);
     }
 
     @Override

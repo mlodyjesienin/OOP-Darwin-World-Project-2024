@@ -9,5 +9,6 @@ public class World {
                 15,36,3,3,3,3,4,5);
 
         simulation.run();
+
     }
 }

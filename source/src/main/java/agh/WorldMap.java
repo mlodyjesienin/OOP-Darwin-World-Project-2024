@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class WorldMap {
-    public final Boundary boundary;
+    private final Boundary boundary;
     private final UUID mapID = UUID.randomUUID();
-    protected final java.util.Map<Vector2d, List<Animal>> animals;
-    protected final java.util.Map<Vector2d, Plant> plants;
+    private java.util.Map<Vector2d, List<Animal>> animals;
+    private java.util.Map<Vector2d, Plant> plants;
 
     WorldMap(Boundary boundary, Map<Vector2d, List<Animal>> animals, Map<Vector2d, Plant> plants){
         this.boundary = boundary;
@@ -22,8 +22,11 @@ public class WorldMap {
     public Map<Vector2d, List<Animal>> getAnimals() {
         return animals;
     }
-
     public Map<Vector2d, Plant> getPlants() {
         return plants;
     }
+    public Boundary getBoundary(){return boundary;}
+    public UUID getMapID() {return mapID;}
+    public void setAnimals(Map<Vector2d, List<Animal>> animals){this.animals = animals;}
+    public void setPlants(HashMap<Vector2d,Plant> plants){this.plants = plants;}
 }
