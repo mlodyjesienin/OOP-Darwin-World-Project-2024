@@ -71,7 +71,7 @@ public class Animal implements MapElement {
 
     @Override
     public String toString() {
-        return position.toString() + " " + direction.toString()+ " "+genes.toString()
+        return animalID + position.toString() + " " + direction.toString()+ " "+genes.toString()
                 + " Energy " + Integer.toString(energy) + " " + Integer.toString(birthDate);
     }
 }

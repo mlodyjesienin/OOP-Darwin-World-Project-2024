@@ -16,6 +16,10 @@ public abstract class Genes {
         this.geneSize = geneSize;
     }
 
+    public int getGeneSize() {return geneSize;}
+
+    public List<MapDirection> getGenes() {return genes;}
+
     public abstract MapDirection nextGene();
 
     @Override

@@ -15,11 +15,11 @@ public class DayCare {
         if (mapVariant == 1) {
             movingMechanism = new MovingMechanismSpecial(worldMap,energyLoss,this);
             reproductionMechanism = new ReproductionMechanismSpecial(worldMap, energyRequirements,
-                    energyReproduce, maxMutation, minMutation);
+                    energyReproduce, maxMutation, minMutation,this);
         } else {
             movingMechanism = new MovingMechanismNormal(worldMap,energyLoss,this);
             reproductionMechanism = new ReproductionMechanismNormal(worldMap, energyRequirements,
-                    energyReproduce, maxMutation, minMutation);
+                    energyReproduce, maxMutation, minMutation,this);
         }
 
         plantGrowthMechanism = new PlantGrowthMechanism(worldMap,plantsCount);
