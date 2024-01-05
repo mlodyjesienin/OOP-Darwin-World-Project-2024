@@ -1,5 +1,6 @@
-package agh;
+package agh.initialization;
 
+import agh.*;
 import agh.simple.Boundary;
 
 import java.util.HashMap;

@@ -1,6 +1,13 @@
-package agh;
+package agh.initialization;
+
+import agh.Genes;
+import agh.GenesNormal;
+import agh.GenesSpecial;
+import agh.simple.MapDirection;
 
 import java.util.*;
+
+import agh.simple.MapDirection;
 
 public class GeneGenerator{
     private final Random random = new Random();
@@ -12,9 +19,12 @@ public class GeneGenerator{
     }
 
      Genes generate(){
-        List<Integer> genes= new ArrayList<>();
+        List<MapDirection> allDirections = new ArrayList<>(List.of(MapDirection.NORTH,MapDirection.NORTHEAST,MapDirection.EAST,
+        MapDirection.SOUTHEAST,MapDirection.SOUTH,MapDirection.SOUTHWEST,MapDirection.WEST,MapDirection.NORTHWEST));
+        List<MapDirection> genes= new ArrayList<>();
         for(int j=0;j<geneSize;j++){
-            genes.add(random.nextInt(8));
+            int randomInt = random.nextInt(8);
+            genes.add(allDirections.get(randomInt));
         }
         int currGene = random.nextInt(geneSize);
         return switch (geneVariant){
@@ -23,4 +33,5 @@ public class GeneGenerator{
             default -> throw new IllegalStateException("Unexpected value: " + geneVariant);
         };
     }
+
 }

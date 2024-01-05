@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class WorldMap {
-    Boundary boundary;
+    public final Boundary boundary;
     private final UUID mapID = UUID.randomUUID();
-    protected java.util.Map<Vector2d, List<Animal>> animals;
-    protected java.util.Map<Vector2d, Plant> plants;
+    protected final java.util.Map<Vector2d, List<Animal>> animals;
+    protected final java.util.Map<Vector2d, Plant> plants;
 
     WorldMap(Boundary boundary, Map<Vector2d, List<Animal>> animals, Map<Vector2d, Plant> plants){
         this.boundary = boundary;

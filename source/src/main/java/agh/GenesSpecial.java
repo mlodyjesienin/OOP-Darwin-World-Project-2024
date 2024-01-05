@@ -1,15 +1,19 @@
 package agh;
 
+import agh.simple.MapDirection;
+
 import java.util.List;
 
-public class GenesSpecial extends Genes{
+public class GenesSpecial extends Genes {
 
-    GenesSpecial(List<Integer> genes, int currGene, int geneSize) {
+
+    public GenesSpecial(List<MapDirection> genes, int currGene, int geneSize) {
         super(genes, currGene, geneSize);
     }
 
     @Override
-    int nextGene() {
-        return 1;
+    public MapDirection nextGene() {
+        return MapDirection.NORTH;
     }
+
 }

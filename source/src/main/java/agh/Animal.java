@@ -10,12 +10,12 @@ import static agh.simple.MapDirection.NORTH;
 
 public class Animal implements MapElement {
     private final UUID animalID = UUID.randomUUID();
-    private Vector2d position;
-    private MapDirection direction = NORTH;
+    public Vector2d position;
+    public MapDirection direction = NORTH;
     private final int birthDate;
     private Integer deathDate = null;
-    private Set<Animal> kids = new HashSet<>();
-    private int energy;
+    private final Set<Animal> kids = new HashSet<>();
+    public int energy;
     private final Genes genes;
 
     public Animal(Vector2d position, int birthDate, int energy, Genes genes){
@@ -23,6 +23,10 @@ public class Animal implements MapElement {
         this.energy = energy;
         this.birthDate = birthDate;
         this.genes = genes;
+    }
+
+    public void setDeathDate(Integer deathDate) {
+        this.deathDate = deathDate;
     }
 
     public Vector2d getPosition() { return position; }

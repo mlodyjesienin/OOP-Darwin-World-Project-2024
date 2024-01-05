@@ -1,13 +1,15 @@
-package agh;
+package agh.initialization;
 
+import agh.Plant;
+import agh.Vector2d;
 import agh.simple.Boundary;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlantGeneration {
-    Map<Vector2d,Plant> plants = new HashMap<>();
-    PlantGeneration(Boundary boundary, int startPlants){
+    Map<Vector2d, Plant> plants = new HashMap<>();
+    public PlantGeneration(Boundary boundary, int startPlants){
         int maxWidth = boundary.upperCorner().getX();
         int maxHeight = boundary.upperCorner().getY();
         RandomPositionGenerator randomPlantsPosition = new RandomPositionGenerator(maxWidth,maxHeight,startPlants);
