@@ -10,7 +10,7 @@ public class DayCare {
     private final ReproductionMechanism reproductionMechanism;
     public final WorldMap worldMap;
     public DayCare(int mapVariant, WorldMap worldMap, int plantsCount, int energyRequirements, int energyReproduce,
-                   int maxMutation, int minMutation, int energyLoss){
+                   int maxMutation, int minMutation, int energyLoss, int energyGain){
         this.worldMap = worldMap;
         if (mapVariant == 1) {
             movingMechanism = new MovingMechanismSpecial(worldMap,energyLoss,this);
@@ -22,7 +22,7 @@ public class DayCare {
                     energyReproduce, maxMutation, minMutation);
         }
 
-        plantConsumptionMechanism = new PlantConsumptionMechanism(worldMap);
+        plantConsumptionMechanism = new PlantConsumptionMechanism(worldMap, energyGain);
         plantGrowthMechanism = new PlantGrowthMechanism(worldMap,plantsCount);
 
 

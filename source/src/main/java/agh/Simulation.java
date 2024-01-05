@@ -13,7 +13,7 @@ public class Simulation extends Observable implements Runnable {
 
     Simulation(int geneVariant, int mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
                int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
-               int minMutation, int geneSize, int energyLoss){
+               int minMutation, int geneSize, int energyLoss, int energyGain){
 
         Boundary boundary = new Boundary(new Vector2d(0,0),new Vector2d(mapWidth, mapHeight));
 
@@ -28,7 +28,7 @@ public class Simulation extends Observable implements Runnable {
         WorldMap worldMap = new WorldMap(boundary,animals,plants);
 
         this.dayCare = new DayCare(mapVariant, worldMap,plantsCount,energyRequirements,energyRequirements,
-                maxMutation,minMutation, energyLoss);
+                maxMutation,minMutation, energyLoss,energyGain);
         drawMap(dayCare);
 
     }

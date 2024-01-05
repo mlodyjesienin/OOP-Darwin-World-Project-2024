@@ -26,8 +26,7 @@ public abstract class MovingMechanism {
     void work(){
         Map<Vector2d, List<Animal>> animalsOnMap = worldMap.getAnimals();
         Map<Vector2d, List<Animal>> newAnimals = new HashMap<>();
-        for(Map.Entry<Vector2d,List<Animal>> entry : animalsOnMap.entrySet()){
-            List<Animal> animalList = entry.getValue();
+        for(List<Animal> animalList : animalsOnMap.values()){
             for(Animal animal : animalList){
                 animal.setEnergy(animal.getEnergy() - energyLoss);
                 if(animal.getEnergy() <= 0){

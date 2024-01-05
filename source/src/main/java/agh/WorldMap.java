@@ -28,5 +28,5 @@ public class WorldMap {
     public Boundary getBoundary(){return boundary;}
     public UUID getMapID() {return mapID;}
     public void setAnimals(Map<Vector2d, List<Animal>> animals){this.animals = animals;}
-    public void setPlants(HashMap<Vector2d,Plant> plants){this.plants = plants;}
+    public void setPlants(Map<Vector2d,Plant> plants){this.plants = plants;}
 }

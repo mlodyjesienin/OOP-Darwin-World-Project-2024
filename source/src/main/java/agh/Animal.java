@@ -46,6 +46,8 @@ public class Animal implements MapElement {
 
     public Integer getDeathDate() { return deathDate; }
 
+    public Set<Animal> getChildren() {return children;}
+
     public boolean isDead() {return !(deathDate == null); }
 
     public void setDirection(MapDirection direction) {this.direction = direction;}
