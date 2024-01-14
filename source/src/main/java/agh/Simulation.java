@@ -11,7 +11,7 @@ public class Simulation extends Observable implements Runnable {
     private final Observer statisticer = new Statisticer();
     private final DayCare dayCare;
 
-    Simulation(int geneVariant, int mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
+    public Simulation(int geneVariant, int mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
                int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
                int minMutation, int geneSize, int energyLoss, int energyGain){
 

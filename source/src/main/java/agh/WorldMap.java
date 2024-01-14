@@ -19,6 +19,10 @@ public class WorldMap {
         this.plants = plants;
     }
 
+    private void mapChanged(){
+
+    }
+
     public Map<Vector2d, List<Animal>> getAnimals() {
         return animals;
     }
