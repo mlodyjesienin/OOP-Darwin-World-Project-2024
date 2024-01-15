@@ -1,5 +1,4 @@
 package agh.ui;
-
 import javafx.application.Application;
 
 public class WorldGUI {

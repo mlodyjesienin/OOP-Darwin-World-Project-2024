@@ -38,7 +38,9 @@ public class Animal implements MapElement {
 
     public UUID getAnimalID() { return animalID; }
 
-    public MapDirection getDirection() { return direction; }
+    public MapDirection getDirection() {
+        return direction;
+    }
 
     public int getEnergy() { return energy;}
 

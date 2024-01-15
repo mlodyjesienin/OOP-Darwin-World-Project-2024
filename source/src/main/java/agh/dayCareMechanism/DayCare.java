@@ -28,7 +28,9 @@ public class DayCare {
 
     }
 
-    public int getDayCount() {return dayCount;}
+    public int getDayCount() {
+        return dayCount;
+    }
 
     public void simulateDay(){
         dayCount++;
