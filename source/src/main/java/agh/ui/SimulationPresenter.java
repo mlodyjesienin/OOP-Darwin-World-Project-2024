@@ -5,19 +5,22 @@ import agh.WorldMap;
 import agh.dayCareMechanism.DayCare;
 import agh.engine.Simulation;
 import agh.engine.SimulationEngine;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationPresenter {
     private WorldMap map;
+    //List<Simulation> simulations = new ArrayList<>();
+    SimulationEngine engine = new SimulationEngine();
     @FXML
     private GridPane mapGrid;
 
@@ -78,8 +81,6 @@ public class SimulationPresenter {
         Simulation simulation = new Simulation(0, 0, 5, 5, 5, 2, 10, 36, 3, 3, 3, 3, 4, 5, 15);
         simulation.registerPresenter(this);
 
-        List<Simulation> simulations = List.of(simulation);
-        SimulationEngine engine = new SimulationEngine(simulations);
-        engine.runAsyncInThreadPool();
+        engine.runAsyncInThreadPool(simulation);
     }
 }
