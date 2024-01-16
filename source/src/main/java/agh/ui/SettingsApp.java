@@ -12,8 +12,8 @@ public class SettingsApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("settings.fxml"));
         VBox viewRoot = loader.load();
-        configureStage(primaryStage, viewRoot);
 
+        configureStage(primaryStage, viewRoot);
         primaryStage.show();
     }
 

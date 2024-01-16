@@ -40,17 +40,17 @@ public class SimulationPresenter {
             mapGrid.getRowConstraints().add(new RowConstraints(50));
         }
 
-        ImageView imageView = new ImageView(new Image("animal1.png"));
+        ImageView imageView = new ImageView(new Image("images/animal1.png"));
         for (List<Animal> an: map.getAnimals().values()){
             switch (an.get(0).getDirection()){
-                case NORTH -> imageView = new ImageView(new Image("animal1.png"));
-                case NORTHEAST -> imageView = new ImageView(new Image("animal2.png"));
-                case EAST -> imageView = new ImageView(new Image("animal3.png"));
-                case SOUTHEAST -> imageView = new ImageView(new Image("animal4.png"));
-                case SOUTH -> imageView = new ImageView(new Image("animal5.png"));
-                case SOUTHWEST -> imageView = new ImageView(new Image("animal6.png"));
-                case WEST -> imageView = new ImageView(new Image("animal7.png"));
-                case NORTHWEST -> imageView = new ImageView(new Image("animal8.png"));
+                case NORTH -> imageView = new ImageView(new Image("images/animal1.png"));
+                case NORTHEAST -> imageView = new ImageView(new Image("images/animal2.png"));
+                case EAST -> imageView = new ImageView(new Image("images/animal3.png"));
+                case SOUTHEAST -> imageView = new ImageView(new Image("images/animal4.png"));
+                case SOUTH -> imageView = new ImageView(new Image("images/animal5.png"));
+                case SOUTHWEST -> imageView = new ImageView(new Image("images/animal6.png"));
+                case WEST -> imageView = new ImageView(new Image("images/animal7.png"));
+                case NORTHWEST -> imageView = new ImageView(new Image("images/animal8.png"));
             }
 
             GridPane.setHalignment(imageView, HPos.CENTER);
@@ -58,7 +58,7 @@ public class SimulationPresenter {
         }
 
         for (Plant plant: map.getPlants().values()){
-            imageView = new ImageView(new Image("plant.png"));
+            imageView = new ImageView(new Image("images/plant.png"));
             GridPane.setHalignment(imageView, HPos.CENTER);
             mapGrid.add(imageView, plant.getPosition().getX(), sizeY - plant.getPosition().getY() - 1);
         }
