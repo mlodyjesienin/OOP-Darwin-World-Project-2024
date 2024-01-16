@@ -15,9 +15,11 @@
 
     <Label text="Map Width:" />
     <TextField fx:id="mapWidth" maxWidth="80"/>
-    <Label fx:id="badValue" textFill="red" visible="false" />
+    <Label fx:id="badWValue" textFill="red" visible="false" />
 
     <Label text="Map Height:" />
     <TextField fx:id="mapHeight" maxWidth="80"/>
+    <Label fx:id="badHValue" textFill="red" visible="false" />
+
     <Button text="Start" onAction="#onSimulationStartClicked" minWidth="100" minHeight="50"/>
 </VBox>
