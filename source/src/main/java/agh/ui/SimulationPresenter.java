@@ -32,11 +32,13 @@ public class SimulationPresenter {
         clearGrid();
         int sizeX = map.getBoundary().upperCorner().getX() - map.getBoundary().lowerCorner().getX() + 1;
         int sizeY = map.getBoundary().upperCorner().getY() - map.getBoundary().lowerCorner().getY() + 1;
+        System.out.println(map.getBoundary().upperCorner().getY());
+        System.out.println(map.getBoundary().lowerCorner().getY());
 
-        for (int i = 0; i < sizeX + 1; i++){
+        for (int i = 0; i < sizeX; i++){
             mapGrid.getColumnConstraints().add(new ColumnConstraints(50));
         }
-        for (int i = 0; i < sizeY + 1; i++){
+        for (int i = 0; i < sizeY; i++){
             mapGrid.getRowConstraints().add(new RowConstraints(50));
         }
 

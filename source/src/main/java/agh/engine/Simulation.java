@@ -21,7 +21,7 @@ public class Simulation extends Observable implements Runnable {
                int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
                int minMutation, int geneSize, int energyLoss, int energyGain){
 
-        Boundary boundary = new Boundary(new Vector2d(0,0),new Vector2d(mapWidth, mapHeight));
+        Boundary boundary = new Boundary(new Vector2d(0,0), new Vector2d(mapWidth - 1, mapHeight - 1));
 
         AnimalGeneration animalGeneration = new AnimalGeneration(boundary, startAnimals, startEnergy, geneSize,
                                                                 geneVariant);
