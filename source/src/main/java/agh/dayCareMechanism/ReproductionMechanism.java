@@ -17,6 +17,9 @@ public abstract class ReproductionMechanism {
     private final int maxMutation;
     private final int minMutation;
     private final DayCare dayCare;
+    private final Comparator<Animal> betterAnimal = new BetterAnimal();
+    private final List<MapDirection> allDirections = new ArrayList<>(List.of(MapDirection.NORTH,MapDirection.NORTHEAST,MapDirection.EAST,
+            MapDirection.SOUTHEAST,MapDirection.SOUTH,MapDirection.SOUTHWEST,MapDirection.WEST,MapDirection.NORTHWEST));
     ReproductionMechanism(WorldMap worldMap, int energyRequirements, int energyReproduce, int maxMutation,
                           int minMutation, DayCare dayCare){
         this.worldMap = worldMap;
@@ -25,6 +28,7 @@ public abstract class ReproductionMechanism {
         this.maxMutation = maxMutation;
         this.minMutation = minMutation;
         this.dayCare = dayCare;
+
     }
 
     public void work(){
@@ -35,9 +39,11 @@ public abstract class ReproductionMechanism {
             if(animalList.size() >1){
                 List<Animal> possibleParents = checkRequirements(animalList);
                 if(possibleParents.size() >1){
-                    List<Animal> bestParents = findBestParents(possibleParents);
-                    Animal child = reproduce(bestParents);
-                    animalList.add(child);
+                    possibleParents.sort(betterAnimal);
+                    for(int i=0;i<possibleParents.size()-1;i+=2) {
+                        Animal child = reproduce(possibleParents.get(i), possibleParents.get(i + 1));
+                        animalList.add(child);
+                    }
                 }
             }
             newAnimals.put(position,animalList);
@@ -53,55 +59,11 @@ public abstract class ReproductionMechanism {
         }
         return possibleParents;
     }
-    private List<Animal> findBestParents(List<Animal> possibleParents){
-        Animal best;
-        Animal secondBest;
-        if(possibleParents.get(0).equals(betterAnimal(possibleParents.get(0), possibleParents.get(1)))){
-            best = possibleParents.get(0);
-            secondBest = possibleParents.get(1);
-        }
-        else{
-            best = possibleParents.get(1);
-            secondBest = possibleParents.get(0);
-        }
-        for(Animal possibleParent : possibleParents){
-            if(best.equals(betterAnimal(possibleParent, best))){
-                secondBest = best;
-                best = possibleParent;
-            }
-            else{
-                secondBest = betterAnimal(possibleParent,secondBest);
-            }
 
-        }
-        return new LinkedList<>(List.of(best,secondBest));
-    }
-
-    private Animal betterAnimal(Animal animal1,Animal animal2){
-        if(animal1.getEnergy() > animal2.getEnergy()){
-            return animal1;
-        }
-        if(animal1.getEnergy() < animal2.getEnergy()){
-            return animal2;
-        }
-        if(animal1.getBirthDate() < animal2.getBirthDate()){
-            return animal1;
-        }
-        if(animal2.getBirthDate() < animal1.getBirthDate()){
-            return animal2;
-        }
-        if(animal1.getChildren().size() > animal2.getChildren().size()){
-            return animal1;
-        }
-        if(animal2.getChildren().size() > animal1.getChildren().size()){
-            return animal2;
-        }
-        return animal1;
-    }
-    private Animal reproduce(List<Animal> parents){
-        Animal dad = parents.get(0);
-        Animal mom = parents.get(1);
-        Animal child =  new Animal(dad.getPosition(),dayCare.getDayCount(),2*energyReproduce,newGenome(dad,mom));
+    private Animal reproduce(Animal dad, Animal mom){
+        Random random = new Random();
+        MapDirection startDirection = allDirections.get(random.nextInt(7));
+        Animal child =  new Animal(dad.getPosition(),dayCare.getDayCount(),2*energyReproduce,newGenome(dad,mom), startDirection);
         dad.setEnergy(dad.getEnergy() - energyReproduce);
         mom.setEnergy(mom.getEnergy() - energyReproduce);
         return child;
@@ -141,7 +103,18 @@ public abstract class ReproductionMechanism {
     }
 
     private void mutate(List<MapDirection> childGenes){
-
+        Random random = new Random();
+        List<Integer> mutationIndices = new ArrayList<>();
+        int geneSize = childGenes.size();
+        for(int i=0; i<geneSize;i++){
+            mutationIndices.add(i);
+        }
+        Collections.shuffle(mutationIndices);
+        int mutationNumber = minMutation +  random.nextInt(maxMutation - minMutation +1);
+        for(int i=0; i<mutationNumber;i++){
+            int genomeMutate = random.nextInt(geneSize);
+            childGenes.set(mutationIndices.get(i),allDirections.get(genomeMutate));
+        }
     }
     abstract Genes createGene(List<MapDirection> childGenes);
 }

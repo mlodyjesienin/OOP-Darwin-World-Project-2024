@@ -13,7 +13,7 @@ public class DayCare {
                    int maxMutation, int minMutation, int energyLoss, int energyGain){
         this.worldMap = worldMap;
         if (mapVariant == 1) {
-            movingMechanism = new MovingMechanismSpecial(worldMap,energyLoss,this);
+            movingMechanism = new MovingMechanismSpecial(worldMap,energyLoss,this, energyReproduce);
             reproductionMechanism = new ReproductionMechanismSpecial(worldMap, energyRequirements,
                     energyReproduce, maxMutation, minMutation,this);
         } else {

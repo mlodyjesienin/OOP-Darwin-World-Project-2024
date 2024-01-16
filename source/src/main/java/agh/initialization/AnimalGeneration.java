@@ -2,11 +2,9 @@ package agh.initialization;
 
 import agh.*;
 import agh.simple.Boundary;
+import agh.simple.MapDirection;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AnimalGeneration {
     Map<Vector2d, List<Animal>> animals = new HashMap<>();
@@ -26,9 +24,13 @@ public class AnimalGeneration {
 
     public void generate(RandomPositionGenerator randomPositionGenerator, GeneGenerator geneGenerator,
                          int startEnergy){
+        Random random = new Random();
+        List<MapDirection> allDirections = new ArrayList<>(List.of(MapDirection.NORTH,MapDirection.NORTHEAST,MapDirection.EAST,
+                MapDirection.SOUTHEAST,MapDirection.SOUTH,MapDirection.SOUTHWEST,MapDirection.WEST,MapDirection.NORTHWEST));
         for(Vector2d position: randomPositionGenerator){
             Genes genes = geneGenerator.generate();
-            Animal animal = new Animal(position,0,startEnergy,genes);
+            MapDirection startDirection = allDirections.get(random.nextInt(allDirections.size()));
+            Animal animal = new Animal(position,0,startEnergy,genes, startDirection);
             addAnimal(position,animal);
         }
 

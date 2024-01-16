@@ -5,16 +5,16 @@ import agh.WorldMap;
 import agh.simple.Boundary;
 import agh.simple.MapDirection;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlantConsumptionMechanism {
     private final WorldMap worldMap;
-    private Map<Vector2d, List<Animal>> animals;
-    private Map<Vector2d, Plant> plants;
     private final int energyGain;
     private final PlantGrowthMechanism plantGrowthMechanism;
+    private final Comparator<Animal> betterAnimal = new BetterAnimal();
     PlantConsumptionMechanism(WorldMap worldMap, int energyGain, PlantGrowthMechanism plantGrowthMechanism){
         this.worldMap = worldMap;
         this.energyGain = energyGain;
@@ -22,8 +22,8 @@ public class PlantConsumptionMechanism {
     }
 
     public void work(){
-        animals = worldMap.getAnimals();
-        plants = worldMap.getPlants();
+        Map<Vector2d, List<Animal>> animals = worldMap.getAnimals();
+        Map<Vector2d, Plant> plants = worldMap.getPlants();
         Animal animal;
         Map<Vector2d,Plant> newPlants = new HashMap<>();
         for(Plant plant: plants.values()){
@@ -54,31 +54,12 @@ public class PlantConsumptionMechanism {
     private Animal resolveConflict(List<Animal> animalList) {
         Animal bestAnimal = animalList.get(0);
         for (Animal animal : animalList) {
-            bestAnimal = betterAnimal(animal,bestAnimal);
+            bestAnimal = switch (betterAnimal.compare(animal,bestAnimal)){
+                case 1 -> bestAnimal;
+                case -1 -> animal;
+                default -> bestAnimal;
+            };
         }
         return bestAnimal;
-    }
-
-    private Animal betterAnimal(Animal animal1,Animal animal2){
-        if(animal1.getEnergy() > animal2.getEnergy()){
-            return animal1;
-        }
-        if(animal1.getEnergy() < animal2.getEnergy()){
-            return animal2;
-        }
-        if(animal1.getBirthDate() < animal2.getBirthDate()){
-            return animal1;
-        }
-        if(animal2.getBirthDate() < animal1.getBirthDate()){
-            return animal2;
-        }
-        if(animal1.getChildren().size() > animal2.getChildren().size()){
-            return animal1;
-        }
-        if(animal2.getChildren().size() > animal1.getChildren().size()){
-            return animal2;
-        }
-        return animal1;
-
     }
 }

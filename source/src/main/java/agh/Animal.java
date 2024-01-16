@@ -12,18 +12,19 @@ import static java.util.Objects.hash;
 public class Animal implements MapElement {
     private final UUID animalID = UUID.randomUUID();
     private Vector2d position;
-    private MapDirection direction = NORTH;
+    private MapDirection direction;
     private final int birthDate;
     private Integer deathDate = null;
     private final Set<Animal> children = new HashSet<>();
     private int energy;
     private final Genes genes;
 
-    public Animal(Vector2d position, int birthDate, int energy, Genes genes){
+    public Animal(Vector2d position, int birthDate, int energy, Genes genes, MapDirection direction){
         this.position = position;
         this.energy = energy;
         this.birthDate = birthDate;
         this.genes = genes;
+        this.direction = direction;
     }
 
     public void setDeathDate(Integer deathDate) {

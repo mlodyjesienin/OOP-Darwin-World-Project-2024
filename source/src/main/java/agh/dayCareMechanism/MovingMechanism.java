@@ -44,19 +44,15 @@ public abstract class MovingMechanism {
     private void move(Animal animal){
         Genes genes = animal.getGenes();
         MapDirection moveDirection = genes.nextGene();
-        Vector2d position = animal.getPosition();
-        if (topBottomTouch(position,moveDirection)) {
-            topBottomHandler(animal,moveDirection);
+        rotateAnimal(animal, moveDirection);
+        if (topBottomTouch(animal)) {
+            topBottomHandler(animal);
         }
-        else if(sideWallTouch(animal.getPosition(),moveDirection)){
-            position = sideWallHandler(position,moveDirection);
-            animal.setPosition(position);
-            animal.setDirection(moveDirection);
+        else if(sideWallTouch(animal)){
+            sideWallHandler(animal);
         }
         else{
-            position = position.add(moveDirection.toUnitVector());
-            animal.setPosition(position);
-            animal.setDirection(moveDirection);
+            normalHandler(animal);
         }
     }
     private void addAnimal(Animal animal,Map<Vector2d, List<Animal>> newAnimals){
@@ -72,22 +68,38 @@ public abstract class MovingMechanism {
         animalsOnPosition.add(animal);
         newAnimals.put(position,animalsOnPosition);
     }
-    private boolean sideWallTouch(Vector2d position, MapDirection moveDirection){
-        Vector2d potentialPosition = position.add(moveDirection.toUnitVector());
+
+    private void rotateAnimal(Animal animal, MapDirection moveDirection){
+        int gene = moveDirection.directionToInt();
+        MapDirection newDirection = animal.getDirection();
+        for(int i=0;i<gene;i++){
+            newDirection = newDirection.next();
+        }
+        animal.setDirection(newDirection);
+    }
+    private boolean sideWallTouch(Animal animal){
+        Vector2d position = animal.getPosition();
+        Vector2d potentialPosition = position.add(animal.getDirection().toUnitVector());
         int currX = potentialPosition.getX();
         int boundaryX =boundary.upperCorner().getX();
         return currX == -1 || currX == boundaryX +1;
     }
-    private boolean topBottomTouch(Vector2d position, MapDirection moveDirection){
-        Vector2d potentialPosition = position.add(moveDirection.toUnitVector());
+    private boolean topBottomTouch(Animal animal){
+        Vector2d position = animal.getPosition();
+        Vector2d potentialPosition = position.add(animal.getDirection().toUnitVector());
         int currY = potentialPosition.getY();
         int boundaryY = boundary.upperCorner().getY();
         return currY == -1 || currY == boundaryY +1;
     }
-    abstract Vector2d sideWallHandler(Vector2d position,MapDirection moveDirection);
+    private void normalHandler(Animal animal){
+        Vector2d position = animal.getPosition();
+        position = position.add(animal.getDirection().toUnitVector());
+        animal.setPosition(position);
+    }
+    abstract void sideWallHandler(Animal animal);
 
 
-    abstract void topBottomHandler(Animal animal, MapDirection moveDirection);
+    abstract void topBottomHandler(Animal animal);
     private void kill(Animal animal){
         animal.setDeathDate(dayCare.getDayCount());
         deadAnimals.add(animal);
