@@ -78,7 +78,7 @@ public class SimulationPresenter {
 
     @FXML
     private void onSimulationStartClicked() {
-        Simulation simulation = new Simulation(0, 1, 5, 5, 5, 5, 5, 50, 3, 3, 3, 3, 4, 5, 15);
+        Simulation simulation = new Simulation(0, 0, 5, 5, 5, 5, 1, 50, 3, 3, 3, 1, 8, 5, 15);
         simulation.registerPresenter(this);
 
         engine.runAsyncInThreadPool(simulation);

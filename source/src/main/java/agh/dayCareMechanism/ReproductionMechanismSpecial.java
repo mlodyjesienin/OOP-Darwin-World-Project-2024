@@ -1,11 +1,10 @@
 package agh.dayCareMechanism;
 
-import agh.Animal;
-import agh.Genes;
-import agh.WorldMap;
+import agh.*;
 import agh.simple.MapDirection;
 
 import java.util.List;
+import java.util.Random;
 
 public class ReproductionMechanismSpecial extends ReproductionMechanism {
 
@@ -16,7 +15,10 @@ public class ReproductionMechanismSpecial extends ReproductionMechanism {
 
     @Override
     Genes createGene(List<MapDirection> childGenes) {
-        return null;
+        Random random = new Random();
+        int size = childGenes.size();
+        int currGene = random.nextInt(size);
+        return new GenesSpecial(childGenes,currGene,size);
     }
 
 
