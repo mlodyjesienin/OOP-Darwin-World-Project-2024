@@ -3,9 +3,6 @@ import agh.Animal;
 import agh.Plant;
 import agh.WorldMap;
 import agh.dayCareMechanism.DayCare;
-import agh.engine.Simulation;
-import agh.engine.SimulationEngine;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -14,13 +11,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationPresenter {
     private WorldMap map;
-    //List<Simulation> simulations = new ArrayList<>();
-    SimulationEngine engine = new SimulationEngine();
     @FXML
     private GridPane mapGrid;
 
@@ -74,13 +68,5 @@ public class SimulationPresenter {
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0));
         mapGrid.getColumnConstraints().clear();
         mapGrid.getRowConstraints().clear();
-    }
-
-    @FXML
-    private void onSimulationStartClicked() {
-        Simulation simulation = new Simulation(0, 0, 5, 5, 5, 2, 10, 36, 3, 3, 3, 3, 4, 5, 15);
-        simulation.registerPresenter(this);
-
-        engine.runAsyncInThreadPool(simulation);
     }
 }

@@ -62,9 +62,8 @@ public class Simulation extends Observable implements Runnable {
     @Override
     public void run() {
         for(int i = 0; i < 50; i++) {
-            //System.out.println("DAY: " + dayCare.getDayCount());
+            System.out.println("DAY");
             dayCare.simulateDay();
-            //drawMap(dayCare);
             presenter.mapChanged(dayCare);
 
             try {
