@@ -13,20 +13,23 @@ public class MovingMechanismNormal extends MovingMechanism {
         super(worldMap, energyLoss, dayCare);
     }
     @Override
-    public Vector2d sideWallHandler(Vector2d position,MapDirection moveDirection){
-        Vector2d potentialPosition = position.add(moveDirection.toUnitVector());
+    public void sideWallHandler(Animal animal){
+        Vector2d position = animal.getPosition();
+        Vector2d potentialPosition = position.add(animal.getDirection().toUnitVector());
+        Vector2d newPosition;
         int boundaryX = boundary.upperCorner().getX();
         int currX = potentialPosition.getX();
         if(currX == boundaryX){
-            return new Vector2d(0, potentialPosition.getY());
+            newPosition = new Vector2d(0, potentialPosition.getY());
         }
         else{
-            return new Vector2d(boundaryX, potentialPosition.getY());
+            newPosition  = new Vector2d(boundaryX, potentialPosition.getY());
         }
+        animal.setPosition(newPosition);
     }
 
     @Override
-    void topBottomHandler(Animal animal, MapDirection moveDirection) {
-        animal.setDirection(moveDirection.reverseDirection());
+    void topBottomHandler(Animal animal) {
+        animal.setDirection(animal.getDirection().reverseDirection());
     }
 }
