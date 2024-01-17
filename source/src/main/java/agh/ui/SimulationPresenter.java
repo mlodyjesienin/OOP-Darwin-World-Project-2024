@@ -2,7 +2,7 @@ package agh.ui;
 import agh.Animal;
 import agh.Plant;
 import agh.WorldMap;
-import agh.dayCareMechanism.DayCare;
+import agh.daycare.DayCare;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;

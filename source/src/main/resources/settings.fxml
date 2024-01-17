@@ -21,5 +21,17 @@
     <TextField fx:id="mapHeight" maxWidth="80"/>
     <Label fx:id="badHValue" textFill="red" visible="false" />
 
+    <Label text="Starting number of animals:" />
+    <TextField fx:id="startAnimals" maxWidth="80"/>
+    <Label fx:id="badAValue" textFill="red" visible="false" />
+
+    <Label text="Starting number of plants:" />
+    <TextField fx:id="startPlants" maxWidth="80"/>
+    <Label fx:id="badSPValue" textFill="red" visible="false" />
+
+    <Label text="Number of plants growing every day:" />
+    <TextField fx:id="growingPlants" maxWidth="80"/>
+    <Label fx:id="badGPValue" textFill="red" visible="false" />
+
     <Button text="Start" onAction="#onSimulationStartClicked" minWidth="100" minHeight="50"/>
 </VBox>

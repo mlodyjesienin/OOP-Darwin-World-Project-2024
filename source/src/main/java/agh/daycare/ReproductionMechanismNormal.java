@@ -1,15 +1,18 @@
-package agh.dayCareMechanism;
+package agh.daycare;
 
-import agh.*;
+import agh.Genes;
+import agh.GenesNormal;
+import agh.WorldMap;
 import agh.simple.MapDirection;
 
 import java.util.List;
 import java.util.Random;
 
-public class ReproductionMechanismSpecial extends ReproductionMechanism {
+
+public class ReproductionMechanismNormal extends ReproductionMechanism {
 
 
-    ReproductionMechanismSpecial(WorldMap worldMap, int energyRequirements, int energyReproduce, int maxMutation, int minMutation, DayCare dayCare) {
+    ReproductionMechanismNormal(WorldMap worldMap, int energyRequirements, int energyReproduce, int maxMutation, int minMutation, DayCare dayCare) {
         super(worldMap, energyRequirements, energyReproduce, maxMutation, minMutation, dayCare);
     }
 
@@ -18,8 +21,9 @@ public class ReproductionMechanismSpecial extends ReproductionMechanism {
         Random random = new Random();
         int size = childGenes.size();
         int currGene = random.nextInt(size);
-        return new GenesSpecial(childGenes,currGene,size);
+        return new GenesNormal(childGenes,currGene,size);
     }
 
 
 }
+

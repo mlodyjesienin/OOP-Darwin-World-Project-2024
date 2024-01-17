@@ -1,4 +1,4 @@
-package agh.dayCareMechanism;
+package agh.daycare;
 
 import agh.Animal;
 

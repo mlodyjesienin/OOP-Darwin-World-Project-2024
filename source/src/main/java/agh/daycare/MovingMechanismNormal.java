@@ -1,11 +1,7 @@
-package agh.dayCareMechanism;
-import agh.Genes;
+package agh.daycare;
 import agh.Animal;
 import agh.Vector2d;
 import agh.WorldMap;
-import agh.simple.MapDirection;
-
-import java.util.*;
 
 public class MovingMechanismNormal extends MovingMechanism {
 

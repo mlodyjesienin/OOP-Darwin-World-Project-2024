@@ -1,10 +1,10 @@
 package agh.engine;
-
 import agh.Animal;
 import agh.Plant;
 import agh.Vector2d;
 import agh.WorldMap;
-import agh.dayCareMechanism.DayCare;
+import agh.daycare.DayCare;
+import agh.daycare.MapVariant;
 import agh.initialization.AnimalGeneration;
 import agh.initialization.PlantGeneration;
 import agh.simple.Boundary;
@@ -17,9 +17,9 @@ public class Simulation extends Observable implements Runnable {
     private final DayCare dayCare;
     private final WorldMap worldMap;
 
-    public Simulation(int geneVariant, int mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
-               int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
-               int minMutation, int geneSize, int energyLoss, int energyGain){
+    public Simulation(int geneVariant, MapVariant mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
+                      int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
+                      int minMutation, int geneSize, int energyLoss, int energyGain){
 
         Boundary boundary = new Boundary(new Vector2d(0,0), new Vector2d(mapWidth - 1, mapHeight - 1));
 
@@ -33,30 +33,12 @@ public class Simulation extends Observable implements Runnable {
 
         worldMap = new WorldMap(boundary,animals,plants);
 
-        this.dayCare = new DayCare(mapVariant, worldMap,plantsCount,energyRequirements,energyRequirements, maxMutation,minMutation, energyLoss,energyGain);
+        this.dayCare = new DayCare(mapVariant, worldMap, plantsCount, energyRequirements, energyReproduce, maxMutation,minMutation, energyLoss,energyGain);
     }
 
     public void registerPresenter(SimulationPresenter presenter){
         this.presenter = presenter;
         presenter.setWorldMap(worldMap);
-    }
-
-    private void drawMap(DayCare dayCare){
-        WorldMap worldMap = dayCare.worldMap;
-        Map<Vector2d, List<Animal>> animals = worldMap.getAnimals();
-        Map<Vector2d,Plant> plants = worldMap.getPlants();
-        System.out.println("ANIMALS:" + animals.size());
-        for(Map.Entry<Vector2d, List<Animal>> entry: animals.entrySet()){
-            Vector2d position = entry.getKey();
-            List<Animal> animalEntry = entry.getValue();
-            System.out.println(position + " " + animalEntry);
-        }
-        System.out.println("PLANTS:" + plants.size());
-        for(Map.Entry<Vector2d, Plant> entry: plants.entrySet()){
-            Vector2d position = entry.getKey();
-            Plant plant = entry.getValue();
-            System.out.println(position + " " + plant);
-        }
     }
 
     @Override
@@ -66,7 +48,7 @@ public class Simulation extends Observable implements Runnable {
             presenter.mapChanged(dayCare);
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(800);
             }
             catch (InterruptedException exception){
                 System.out.println("Thread interrupted!");

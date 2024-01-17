@@ -1,12 +1,10 @@
-package agh.dayCareMechanism;
+package agh.daycare;
 
 import agh.Animal;
 import agh.Vector2d;
 import agh.WorldMap;
-import agh.simple.MapDirection;
 
 import java.util.Random;
-import java.util.Vector;
 
 public class MovingMechanismSpecial extends MovingMechanism{
     private final int  energyReproduce;

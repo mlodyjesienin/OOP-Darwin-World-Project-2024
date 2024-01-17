@@ -1,9 +1,7 @@
-package agh.dayCareMechanism;
+package agh.daycare;
 
 import agh.*;
 import agh.WorldMap;
-import agh.simple.Boundary;
-import agh.simple.MapDirection;
 
 import java.util.Comparator;
 import java.util.HashMap;

@@ -19,11 +19,9 @@ Diagram klas:\
 
 - Implementacja statystyk.
 
-- Implementacja wielu symulacji naraz i poprawne zrobienie metody `run()` w `Simulation`.
+- Poprawne zrobienie metody `run()` w `Simulation`.
 
 - Implementacja UI.
-
-- (Ewentualnie) realizowanie wariantów poprzez `ENUM` np. `EARTH`, `PORTALS`, a nie tak jak jest obecnie poprzez rozpoznawanie inta (0 -> wariant `EARTH`, 1 -> wariant `PORTALS` itp.)
 
 - (Ewentualnie) Przy mechanizmie znajdowania potomków konkretnego zwierzaka, można zamiast dla każdego zwierzaka osobny `HashSet`, zrobić graf skierowany (drzewo genealogiczne), co może być optymalniejsze.
 

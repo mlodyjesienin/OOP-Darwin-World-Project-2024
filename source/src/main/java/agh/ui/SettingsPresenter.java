@@ -1,4 +1,5 @@
 package agh.ui;
+import agh.daycare.MapVariant;
 import agh.engine.Simulation;
 import agh.engine.SimulationEngine;
 import javafx.fxml.FXML;
@@ -18,19 +19,30 @@ public class SettingsPresenter {
     @FXML
     private TextField mapHeight;
     @FXML
+    private TextField startPlants;
+    @FXML
+    private TextField growingPlants;
+    @FXML
+    private TextField startAnimals;
+    @FXML
     private Label badWValue;
     @FXML
     private Label badHValue;
+    @FXML
+    private Label badSPValue;
+    @FXML
+    private Label badGPValue;
+    @FXML
+    private Label badAValue;
 
     @FXML
     private void onSimulationStartClicked() throws IOException {
         boolean canStart = true;
+        String paramText = mapWidth.getText();
         int mapWidthVal = 0;
-        int mapHeightVal = 0;
-        String mapWidthText = mapWidth.getText();
 
         try {
-            mapWidthVal = Integer.parseInt(mapWidthText);
+            mapWidthVal = Integer.parseInt(paramText);
             badWValue.setVisible(false);
 
             if (mapWidthVal > 0){
@@ -46,7 +58,7 @@ public class SettingsPresenter {
                 }
             }
             else {
-                badWValue.setText("map width value cannot be lower than 0!");
+                badWValue.setText("map width value must by greater than 0!");
                 badWValue.setVisible(true);
                 canStart = false;
             }
@@ -57,10 +69,10 @@ public class SettingsPresenter {
             canStart = false;
         }
 
-        String mapHeightValue = mapHeight.getText();
-
+        paramText = mapHeight.getText();
+        int mapHeightVal = 0;
         try {
-            mapHeightVal = Integer.parseInt(mapHeightValue);
+            mapHeightVal = Integer.parseInt(paramText);
             badHValue.setVisible(false);
 
             if (mapHeightVal > 0){
@@ -76,14 +88,104 @@ public class SettingsPresenter {
                 }
             }
             else {
-                badHValue.setText("map height value cannot be lower than 0!");
+                badHValue.setText("map height value must by greater than 0!");
                 badHValue.setVisible(true);
                 canStart = false;
             }
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException e){
             badHValue.setText("bad map height value!");
             badHValue.setVisible(true);
+            canStart = false;
+        }
+
+        paramText = startAnimals.getText();
+        int startAnimalsVal = 0;
+        try {
+            startAnimalsVal = Integer.parseInt(paramText);
+            badAValue.setVisible(false);
+
+            if (startAnimalsVal >= 0){
+                badAValue.setVisible(false);
+
+                if (startAnimalsVal <= mapWidthVal * mapHeightVal){
+                    badAValue.setVisible(false);
+                }
+                else {
+                    badAValue.setText("starting animals number too large!");
+                    badAValue.setVisible(true);
+                    canStart = false;
+                }
+            }
+            else {
+                badAValue.setText("starting animals number cannot be lower than 0!");
+                badAValue.setVisible(true);
+                canStart = false;
+            }
+        }
+        catch (NumberFormatException e){
+            badAValue.setText("bad starting animals value!");
+            badAValue.setVisible(true);
+            canStart = false;
+        }
+
+        paramText = startPlants.getText();
+        int startPlantsVal = 0;
+        try {
+            startPlantsVal = Integer.parseInt(paramText);
+            badSPValue.setVisible(false);
+
+            if (startPlantsVal >= 0){
+                badSPValue.setVisible(false);
+
+                if (startPlantsVal <= mapWidthVal * mapHeightVal){
+                    badSPValue.setVisible(false);
+                }
+                else {
+                    badSPValue.setText("starting plants value too large!");
+                    badSPValue.setVisible(true);
+                    canStart = false;
+                }
+            }
+            else {
+                badSPValue.setText("starting plants value cannot be lower than 0!");
+                badSPValue.setVisible(true);
+                canStart = false;
+            }
+        }
+        catch (NumberFormatException e){
+            badSPValue.setText("bad starting plants value!");
+            badSPValue.setVisible(true);
+            canStart = false;
+        }
+
+        paramText = growingPlants.getText();
+        int growingPlantsVal = 0;
+        try {
+            growingPlantsVal = Integer.parseInt(paramText);
+            badGPValue.setVisible(false);
+
+            if (growingPlantsVal > 0){
+                badGPValue.setVisible(false);
+
+                if (growingPlantsVal <= mapWidthVal * mapHeightVal){
+                    badGPValue.setVisible(false);
+                }
+                else {
+                    badGPValue.setText("too large number of plants growing every day!");
+                    badGPValue.setVisible(true);
+                    canStart = false;
+                }
+            }
+            else {
+                badGPValue.setText("number of plants growing every day cannot be lower than 0!");
+                badGPValue.setVisible(true);
+                canStart = false;
+            }
+        }
+        catch (NumberFormatException e){
+            badGPValue.setText("bad number of plants growing every day!");
+            badGPValue.setVisible(true);
             canStart = false;
         }
 
@@ -95,7 +197,8 @@ public class SettingsPresenter {
             configureStage(stage, viewRoot);
             stage.show();
 
-            Simulation simulation = new Simulation(0, 0, mapHeightVal, mapWidthVal, 5, 2, 10, 36, 3, 3, 3, 3, 4, 5, 15);
+            Simulation simulation = new Simulation(0, MapVariant.EARTH, mapHeightVal, mapWidthVal,
+                    startPlantsVal, growingPlantsVal, startAnimalsVal, 36, 3, 3, 3, 3, 4, 5, 15);
             simulation.registerPresenter(loader.getController());
             engine.runAsyncInThreadPool(simulation);
         }
