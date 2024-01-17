@@ -4,8 +4,10 @@ import agh.Plant;
 import agh.Vector2d;
 import agh.WorldMap;
 import agh.daycare.DayCare;
+import agh.daycare.GeneVariant;
 import agh.daycare.MapVariant;
 import agh.initialization.AnimalGeneration;
+import agh.initialization.GeneGenerator;
 import agh.initialization.PlantGeneration;
 import agh.simple.Boundary;
 import agh.ui.SimulationPresenter;
@@ -17,15 +19,14 @@ public class Simulation extends Observable implements Runnable {
     private final DayCare dayCare;
     private final WorldMap worldMap;
 
-    public Simulation(int geneVariant, MapVariant mapVariant, int mapHeight, int mapWidth, int startPlants, int plantsCount,
-                      int startAnimals, int startEnergy, int energyRequirements, int energyReproduce, int maxMutation,
-                      int minMutation, int geneSize, int energyLoss, int energyGain){
+    public Simulation(Parameters parameters){
 
-        Boundary boundary = new Boundary(new Vector2d(0,0), new Vector2d(mapWidth - 1, mapHeight - 1));
+        Boundary boundary = new Boundary(new Vector2d(0,0), new Vector2d(parameters.mapWidth() - 1,
+                parameters.mapHeight() - 1));
 
-        AnimalGeneration animalGeneration = new AnimalGeneration(boundary, startAnimals, startEnergy, geneSize,
-                                                                geneVariant);
-        PlantGeneration plantGeneration = new PlantGeneration(boundary,startPlants);
+        AnimalGeneration animalGeneration = new AnimalGeneration(boundary, parameters.startAnimals(),
+                parameters.startEnergy(), parameters.geneSize(), parameters.geneVariant());
+        PlantGeneration plantGeneration = new PlantGeneration(boundary, parameters.startPlants());
 
         Map<Vector2d, List<Animal>> animals = animalGeneration.getAnimals();
 
@@ -33,7 +34,9 @@ public class Simulation extends Observable implements Runnable {
 
         worldMap = new WorldMap(boundary,animals,plants);
 
-        this.dayCare = new DayCare(mapVariant, worldMap, plantsCount, energyRequirements, energyReproduce, maxMutation,minMutation, energyLoss,energyGain);
+        this.dayCare = new DayCare(parameters.mapVariant(), worldMap, parameters.plantsCount(),
+                parameters.energyRequirements(), parameters.energyReproduce(), parameters.maxMutation(),
+                parameters.minMutation(), parameters.energyLoss(), parameters.energyGain());
     }
 
     public void registerPresenter(SimulationPresenter presenter){

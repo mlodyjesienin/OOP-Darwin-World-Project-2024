@@ -5,33 +5,96 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       minWidth="1280.0" minHeight="720.0"
-      spacing="10"
-      fx:controller="agh.ui.SettingsPresenter">
-    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+      fx:controller="agh.ui.SettingsPresenter"
+      style="-fx-font-size: 14;">
+    <padding><Insets top="50" right="50" bottom="50" left="50"/></padding>
+    <HBox alignment="CENTER" spacing="50">
+        <VBox>
+            <Label text="Map Width:" />
+            <TextField fx:id="mapWidth" maxWidth="80"/>
+            <Label fx:id="badWValue" textFill="red" visible="false" />
 
-    <Label text="Map Width:" />
-    <TextField fx:id="mapWidth" maxWidth="80"/>
-    <Label fx:id="badWValue" textFill="red" visible="false" />
+            <Label text="Map Height:" />
+            <TextField fx:id="mapHeight" maxWidth="80"/>
+            <Label fx:id="badHValue" textFill="red" visible="false" />
 
-    <Label text="Map Height:" />
-    <TextField fx:id="mapHeight" maxWidth="80"/>
-    <Label fx:id="badHValue" textFill="red" visible="false" />
+            <Label text="Starting number of animals:" />
+            <TextField fx:id="startAnimals" maxWidth="80"/>
+            <Label fx:id="badAValue" textFill="red" visible="false" />
 
-    <Label text="Starting number of animals:" />
-    <TextField fx:id="startAnimals" maxWidth="80"/>
-    <Label fx:id="badAValue" textFill="red" visible="false" />
+            <Label text="Starting number of plants:" />
+            <TextField fx:id="startPlants" maxWidth="80"/>
+            <Label fx:id="badSPValue" textFill="red" visible="false" />
 
-    <Label text="Starting number of plants:" />
-    <TextField fx:id="startPlants" maxWidth="80"/>
-    <Label fx:id="badSPValue" textFill="red" visible="false" />
+            <Label text="Number of plants growing every day:" />
+            <TextField fx:id="growingPlants" maxWidth="80"/>
+            <Label fx:id="badGPValue" textFill="red" visible="false" />
 
-    <Label text="Number of plants growing every day:" />
-    <TextField fx:id="growingPlants" maxWidth="80"/>
-    <Label fx:id="badGPValue" textFill="red" visible="false" />
+            <ComboBox fx:id="mapVariant" promptText="Map variant:">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Earth" />
+                        <String fx:value="Portals" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label fx:id="noMapVariant" textFill="red" visible="false" />
 
-    <Button text="Start" onAction="#onSimulationStartClicked" minWidth="100" minHeight="50"/>
+            <ComboBox fx:id="geneVariant" promptText="Gene variant:">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Normal" />
+                        <String fx:value="Special" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label fx:id="noGeneVariant" textFill="red" visible="false" />
+        </VBox>
+        <VBox>
+            <Label text="Starting animal energy:" />
+            <TextField fx:id="startEnergy" maxWidth="80"/>
+            <Label fx:id="badEValue" textFill="red" visible="false" />
+
+            <Label text="Energy required:"/>
+            <TextField fx:id="energyRequired" maxWidth="80"/>
+            <Label fx:id="badReqValue" textFill="red" visible="false"/>
+
+            <Label text="Energy reproduce:" />
+            <TextField fx:id="energyReproduce" maxWidth="80"/>
+            <Label fx:id="badRepValue" textFill="red" visible="false" />
+
+            <Label text="Minimum mutation:" />
+            <TextField fx:id="minMutation" maxWidth="80"/>
+            <Label fx:id="badMinValue" textFill="red" visible="false" />
+
+            <Label text="Maximum mutation:" />
+            <TextField fx:id="maxMutation" maxWidth="80"/>
+            <Label fx:id="badMaxValue" textFill="red" visible="false" />
+
+            <Label text="Energy loss:" />
+            <TextField fx:id="energyLoss" maxWidth="80"/>
+            <Label fx:id="badLossValue" textFill="red" visible="false" />
+
+            <Label text="Energy gain:" />
+            <TextField fx:id="energyGain" maxWidth="80"/>
+            <Label fx:id="badGainValue" textFill="red" visible="false" />
+        </VBox>
+        <VBox>
+            <Label text="Gene size:" />
+            <TextField fx:id="geneSize" maxWidth="80"/>
+            <Label fx:id="badSizeValue" textFill="red" visible="false" />
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+        <Button text="Start" onAction="#onSimulationStartClicked" minWidth="100" minHeight="50"/>
+    </HBox>
 </VBox>

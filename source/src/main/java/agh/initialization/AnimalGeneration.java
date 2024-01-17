@@ -1,6 +1,7 @@
 package agh.initialization;
 
 import agh.*;
+import agh.daycare.GeneVariant;
 import agh.simple.Boundary;
 import agh.simple.MapDirection;
 
@@ -8,8 +9,7 @@ import java.util.*;
 
 public class AnimalGeneration {
     Map<Vector2d, List<Animal>> animals = new HashMap<>();
-    public AnimalGeneration(Boundary boundary,int startAnimals, int startEnergy, int geneSize,
-                            int geneVariant){
+    public AnimalGeneration(Boundary boundary,int startAnimals, int startEnergy, int geneSize, GeneVariant geneVariant){
         int maxWidth = boundary.upperCorner().getX();
         int maxHeight = boundary.upperCorner().getY();
         GeneGenerator geneGenerator = new GeneGenerator(geneVariant, geneSize);

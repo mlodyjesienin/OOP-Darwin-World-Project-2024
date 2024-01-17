@@ -110,8 +110,8 @@ public abstract class ReproductionMechanism {
             mutationIndices.add(i);
         }
         Collections.shuffle(mutationIndices);
-        int mutationNumber = minMutation +  random.nextInt(maxMutation - minMutation +1);
-        for(int i=0; i<mutationNumber;i++){
+        int mutationNumber = minMutation + random.nextInt(maxMutation - minMutation + 1);
+        for(int i = 0; i < mutationNumber; i++){
             int genomeMutate = random.nextInt(geneSize);
             childGenes.set(mutationIndices.get(i),allDirections.get(genomeMutate));
         }

@@ -1,8 +1,5 @@
 package agh;
-
 import agh.simple.MapDirection;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Genes {
