@@ -4,8 +4,11 @@ import agh.daycare.MapVariant;
 import agh.engine.Parameters;
 import agh.engine.Simulation;
 import agh.engine.SimulationEngine;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -13,10 +16,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.io.IOException;
 
-public class SettingsPresenter {
-    SimulationEngine engine = new SimulationEngine();
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+public class SettingsPresenter implements Initializable {
     @FXML
     private TextField mapWidth;
     @FXML
@@ -78,16 +89,139 @@ public class SettingsPresenter {
     @FXML
     private Label badTimeRefresh;
     @FXML
+    private Label badFile;
+    @FXML
     private ComboBox<String> mapVariant;
     @FXML
     private ComboBox<String> geneVariant;
+    @FXML
+    private ComboBox<String> configuration;
+    private final SimulationEngine engine = new SimulationEngine();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+        updateConfigurations();
+    }
+
+    private void updateConfigurations(){
+        ObservableList<String> options = FXCollections.observableArrayList();
+        InputStream inputStream = Objects.requireNonNull(SettingsApp.class.getClassLoader().getResourceAsStream("configurations.csv"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                options.add(parts[0]);
+            }
+
+            badFile.setVisible(false);
+            configuration.setItems(options);
+        }
+        catch (IOException e){
+            badFile.setVisible(true);
+            badFile.setText("File opening error!");
+        }
+    }
+
+    @FXML
+    private void onApplyClicked(){
+        String paramText = configuration.getValue();
+
+        if (paramText != null){
+            InputStream inputStream = Objects.requireNonNull(SettingsApp.class.getClassLoader().getResourceAsStream("configurations.csv"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+
+            try {
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" ");
+                    if (parts[0].equals(paramText)){
+                        mapWidth.setText(parts[1]);
+                        mapHeight.setText(parts[2]);
+                        startAnimals.setText(parts[3]);
+                        startPlants.setText(parts[4]);
+                        growingPlants.setText(parts[5]);
+                        mapVariant.setValue(parts[6]);
+                        geneVariant.setValue(parts[7]);
+                        startEnergy.setText(parts[8]);
+                        energyRequired.setText(parts[9]);
+                        energyReproduce.setText(parts[10]);
+                        minMutation.setText(parts[11]);
+                        maxMutation.setText(parts[12]);
+                        energyLoss.setText(parts[13]);
+                        energyGain.setText(parts[14]);
+                        geneSize.setText(parts[15]);
+                        timeRefresh.setText(parts[16]);
+                        break;
+                    }
+                }
+
+                badFile.setVisible(false);
+            }
+            catch (IOException e){
+                badFile.setVisible(true);
+                badFile.setText("File opening error!");
+            }
+        }
+    }
+
+    @FXML
+    public void onSaveClicked(){
+        Parameters parameters = testParameters();
+
+        if (parameters != null){
+            Path resourcesPath = Path.of("src/main/resources");
+            Path path = Path.of("src/main/resources/configurations.csv");
+            try {
+                List<String> lines = Files.readAllLines(path);
+                String name = "config" + (lines.size() + 1);
+                String configuration = name + " " + parameters + "\n";
+                badFile.setVisible(false);
+
+                try (BufferedWriter writer = Files.newBufferedWriter(resourcesPath.resolve("configurations.csv"),
+                        StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+                    writer.write(configuration);
+                    badFile.setVisible(false);
+                } catch (IOException e) {
+                    badFile.setVisible(true);
+                    badFile.setText("File opening error!");
+                }
+            }
+            catch (IOException e){
+                badFile.setVisible(true);
+                badFile.setText("File opening error!");
+            }
+
+            updateConfigurations();
+        }
+    }
 
     @FXML
     private void onSimulationStartClicked() throws IOException {
+        Parameters parameters = testParameters();
+
+        if (parameters != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+            VBox viewRoot = loader.load();
+            Stage stage = new Stage();
+            configureStage(stage, viewRoot);
+            stage.show();
+
+            Simulation simulation = new Simulation(parameters);
+            simulation.registerPresenter(loader.getController());
+            engine.runAsyncInThreadPool(simulation);
+
+            stage.setOnCloseRequest(event -> handleCloseRequest(stage, loader.getController()));
+        }
+    }
+
+    private Parameters testParameters(){
         boolean canStart = true;
+
         String paramText = mapWidth.getText();
         int mapWidthVal = 0;
-
         try {
             mapWidthVal = Integer.parseInt(paramText);
             badWValue.setVisible(false);
@@ -463,22 +597,13 @@ public class SettingsPresenter {
         }
 
         if (canStart){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
-            VBox viewRoot = loader.load();
-            Stage stage = new Stage();
-            configureStage(stage, viewRoot);
-            stage.show();
-
-            Parameters parameters = new Parameters(geneVariantVal, mapVariantVal, mapHeightVal, mapWidthVal,
+            return new Parameters(geneVariantVal, mapVariantVal, mapHeightVal, mapWidthVal,
                     startPlantsVal, growingPlantsVal, startAnimalsVal, startEnergyVal, energyRequiredVal,
                     energyReproduceVal, maxMutationVal, minMutationVal, geneSizeVal, energyLossVal,
                     energyGainVal, timeRefreshVal);
-            Simulation simulation = new Simulation(parameters);
-            simulation.registerPresenter(loader.getController());
-            engine.runAsyncInThreadPool(simulation);
-
-            stage.setOnCloseRequest(event -> handleCloseRequest(stage, loader.getController()));
+        }
+        else {
+            return null;
         }
     }
 

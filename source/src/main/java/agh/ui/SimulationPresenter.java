@@ -12,6 +12,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+
 import java.util.List;
 
 public class SimulationPresenter {
@@ -46,22 +50,23 @@ public class SimulationPresenter {
         for (Plant plant: map.getPlants().values()){
             StackPane cell = new StackPane();
             mapGrid.add(cell, plant.getPosition().getX(), sizeY - plant.getPosition().getY() - 1);
-            cell.setStyle("-fx-background-color: green;");
+            cell.setStyle("-fx-background-color: #00cc00;");
         }
 
-        ImageView imageView = new ImageView(new Image("images/animal1.png"));
+        Image image = new Image("images/animal1.png");
         for (List<Animal> an: map.getAnimals().values()){
             switch (an.get(0).getDirection()){
-                case NORTH -> imageView = new ImageView(new Image("images/animal1.png"));
-                case NORTHEAST -> imageView = new ImageView(new Image("images/animal2.png"));
-                case EAST -> imageView = new ImageView(new Image("images/animal3.png"));
-                case SOUTHEAST -> imageView = new ImageView(new Image("images/animal4.png"));
-                case SOUTH -> imageView = new ImageView(new Image("images/animal5.png"));
-                case SOUTHWEST -> imageView = new ImageView(new Image("images/animal6.png"));
-                case WEST -> imageView = new ImageView(new Image("images/animal7.png"));
-                case NORTHWEST -> imageView = new ImageView(new Image("images/animal8.png"));
+                case NORTH -> image = new Image("images/animal1.png");
+                case NORTHEAST -> image = new Image("images/animal2.png");
+                case EAST -> image = new Image("images/animal3.png");
+                case SOUTHEAST -> image = new Image("images/animal4.png");
+                case SOUTH -> image = new Image("images/animal5.png");
+                case SOUTHWEST -> image = new Image("images/animal6.png");
+                case WEST -> image = new Image("images/animal7.png");
+                case NORTHWEST -> image = new Image("images/animal8.png");
             }
 
+            ImageView imageView = new ImageView(image);
             imageView.setFitWidth(cellSize * 0.8);
             imageView.setFitHeight(cellSize * 0.8);
             GridPane.setHalignment(imageView, HPos.CENTER);
@@ -78,7 +83,7 @@ public class SimulationPresenter {
             for (int j = 0; j < sizeX; j++){
                 StackPane cell = new StackPane();
                 mapGrid.add(cell, i, j);
-                cell.setStyle("-fx-background-color: lightgreen;");
+                cell.setStyle("-fx-background-color: #a8e7a8;");
             }
         }
     }

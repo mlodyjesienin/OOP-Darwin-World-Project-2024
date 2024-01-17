@@ -95,6 +95,15 @@
             <Label text="Time refresh:" />
             <TextField fx:id="timeRefresh" maxWidth="80"/>
             <Label fx:id="badTimeRefresh" textFill="red" visible="false" />
+
+            <ComboBox fx:id="configuration" promptText="Select configuration:"/>
+            <Label fx:id="badFile" textFill="red" visible="false" />
+
+            <HBox spacing="30">
+                <padding><Insets top="5" right="20" bottom="20" left="20"/></padding>
+                <Button text="Apply" onAction="#onApplyClicked" minWidth="50" minHeight="25"/>
+                <Button text="Save" onAction="#onSaveClicked" minWidth="50" minHeight="25"/>
+            </HBox>
         </VBox>
     </HBox>
     <HBox alignment="CENTER">

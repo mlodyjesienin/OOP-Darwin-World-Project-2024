@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.io.IOException;
+import java.io.*;
 
 public class SettingsApp extends Application {
     @Override
