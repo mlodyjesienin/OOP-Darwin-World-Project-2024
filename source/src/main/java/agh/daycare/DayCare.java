@@ -41,5 +41,4 @@ public class DayCare {
         reproductionMechanism.work();
         plantGrowthMechanism.work();
     }
-
 }

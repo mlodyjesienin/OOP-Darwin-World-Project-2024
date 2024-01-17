@@ -1,7 +1,5 @@
 package agh.mapEntities;
-
 import agh.simple.MapDirection;
-
 import java.util.List;
 
 public class GenesNormal extends Genes {

@@ -1,12 +1,9 @@
 package agh.mapEntities;
-
 import agh.simple.Vector2d;
 import agh.simple.MapDirection;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
 import static java.util.Objects.hash;
 
 public class Animal implements MapElement {

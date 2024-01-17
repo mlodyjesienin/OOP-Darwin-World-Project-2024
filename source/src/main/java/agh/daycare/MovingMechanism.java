@@ -1,12 +1,10 @@
 package agh.daycare;
-
 import agh.mapEntities.Animal;
 import agh.mapEntities.Genes;
 import agh.simple.Vector2d;
 import agh.mapEntities.WorldMap;
 import agh.simple.Boundary;
 import agh.simple.MapDirection;
-
 import java.util.*;
 
 public abstract class MovingMechanism {
@@ -98,12 +96,9 @@ public abstract class MovingMechanism {
     }
     abstract void sideWallHandler(Animal animal);
 
-
     abstract void topBottomHandler(Animal animal);
     private void kill(Animal animal){
         animal.setDeathDate(dayCare.getDayCount());
         deadAnimals.add(animal);
     }
-
-
 }

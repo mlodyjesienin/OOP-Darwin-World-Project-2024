@@ -61,6 +61,5 @@ public class Simulation extends Observable implements Runnable {
                 System.out.println("Thread interrupted!");
             }
         }
-
     }
 }

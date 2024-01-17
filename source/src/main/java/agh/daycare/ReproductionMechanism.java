@@ -32,15 +32,16 @@ public abstract class ReproductionMechanism {
     }
 
     public void work(){
+        System.out.println("1");
         Map<Vector2d, List<Animal>> newAnimals = new HashMap<>();
         for(Map.Entry<Vector2d,List<Animal>> entry: worldMap.getAnimals().entrySet()){
             Vector2d position = entry.getKey();
             List<Animal> animalList = entry.getValue();
-            if(animalList.size() >1){
+            if(animalList.size() > 1){
                 List<Animal> possibleParents = checkRequirements(animalList);
-                if(possibleParents.size() >1){
+                if(possibleParents.size() > 1){
                     possibleParents.sort(betterAnimal);
-                    for(int i=0;i<possibleParents.size()-1;i+=2) {
+                    for(int i = 0; i < possibleParents.size() - 1; i += 2) {
                         Animal child = reproduce(possibleParents.get(i), possibleParents.get(i + 1));
                         animalList.add(child);
                     }

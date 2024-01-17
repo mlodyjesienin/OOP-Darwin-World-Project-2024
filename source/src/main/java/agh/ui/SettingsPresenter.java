@@ -490,8 +490,17 @@ public class SettingsPresenter implements Initializable {
             geneSizeVal = Integer.parseInt(paramText);
             badSizeValue.setVisible(false);
 
-            if (geneSizeVal >= 0){
+            if (geneSizeVal > 0){
                 badSizeValue.setVisible(false);
+
+                if (geneSizeVal >= maxMutationVal){
+                    badSizeValue.setVisible(false);
+                }
+                else {
+                    badSizeValue.setText("gene size cannot be lower than max mutation value!");
+                    badSizeValue.setVisible(true);
+                    canStart = false;
+                }
             }
             else {
                 badSizeValue.setText("gene size cannot be lower than 0!");

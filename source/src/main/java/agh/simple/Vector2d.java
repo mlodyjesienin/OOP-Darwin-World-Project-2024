@@ -1,5 +1,4 @@
 package agh.simple;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.util.Objects.hash;
@@ -53,5 +52,4 @@ public class Vector2d {
             return false;
         return this.x == ((Vector2d) other).getX() && this.y == ((Vector2d) other).getY();
     }
-
 }
