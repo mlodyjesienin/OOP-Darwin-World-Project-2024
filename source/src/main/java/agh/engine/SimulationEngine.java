@@ -8,4 +8,8 @@ public class SimulationEngine {
     public void runAsyncInThreadPool(Simulation simulation){
         executorService.submit(simulation);
     }
+
+    public void stopEngine(){
+        executorService.shutdown();
+    }
 }

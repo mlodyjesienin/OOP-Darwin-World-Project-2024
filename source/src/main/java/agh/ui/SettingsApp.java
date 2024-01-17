@@ -16,6 +16,13 @@ public class SettingsApp extends Application {
 
         configureStage(primaryStage, viewRoot);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> handleCloseRequest(primaryStage, loader.getController()));
+    }
+
+    private void handleCloseRequest(Stage stage, SettingsPresenter controller){
+        controller.stopEngine();
+        stage.close();
     }
 
     private void configureStage(Stage primaryStage, VBox viewRoot){

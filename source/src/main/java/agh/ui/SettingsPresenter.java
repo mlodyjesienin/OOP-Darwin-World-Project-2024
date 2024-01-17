@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -560,7 +559,7 @@ public class SettingsPresenter implements Initializable {
         MapVariant mapVariantVal = MapVariant.EARTH;
         if (paramText != null){
             noMapVariant.setVisible(false);
-            if (paramText.equals("PORTALS")){
+            if (paramText.equals("Portals")){
                 mapVariantVal = MapVariant.PORTALS;
             }
         }
@@ -574,7 +573,7 @@ public class SettingsPresenter implements Initializable {
         GeneVariant geneVariantVal = GeneVariant.NORMAL;
         if (paramText != null){
             noGeneVariant.setVisible(false);
-            if (paramText.equals("SPECIAL")){
+            if (paramText.equals("Special")){
                 geneVariantVal = GeneVariant.SPECIAL;
             }
         }
@@ -619,6 +618,10 @@ public class SettingsPresenter implements Initializable {
     private void handleCloseRequest(Stage stage, SimulationPresenter simulationPresenter){
         simulationPresenter.simulationClosed = true;
         stage.close();
+    }
+
+    public void stopEngine(){
+        engine.stopEngine();
     }
 
     private void configureStage(Stage primaryStage, VBox viewRoot){

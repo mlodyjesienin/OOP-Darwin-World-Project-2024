@@ -32,7 +32,6 @@ public abstract class ReproductionMechanism {
     }
 
     public void work(){
-        System.out.println("1");
         Map<Vector2d, List<Animal>> newAnimals = new HashMap<>();
         for(Map.Entry<Vector2d,List<Animal>> entry: worldMap.getAnimals().entrySet()){
             Vector2d position = entry.getKey();
