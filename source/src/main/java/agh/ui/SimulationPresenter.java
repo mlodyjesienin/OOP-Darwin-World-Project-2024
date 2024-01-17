@@ -42,6 +42,12 @@ public class SimulationPresenter {
             mapGrid.getRowConstraints().add(new RowConstraints(cellSize));
         }
 
+        for (Plant plant: map.getPlants().values()){
+            StackPane cell = new StackPane();
+            mapGrid.add(cell, plant.getPosition().getX(), sizeY - plant.getPosition().getY() - 1);
+            cell.setStyle("-fx-background-color: green;");
+        }
+
         ImageView imageView = new ImageView(new Image("images/animal1.png"));
         for (List<Animal> an: map.getAnimals().values()){
             switch (an.get(0).getDirection()){
@@ -59,12 +65,6 @@ public class SimulationPresenter {
             imageView.setFitHeight(cellSize * 0.8);
             GridPane.setHalignment(imageView, HPos.CENTER);
             mapGrid.add(imageView, an.get(0).getPosition().getX(), sizeY - an.get(0).getPosition().getY() - 1);
-        }
-
-        for (Plant plant: map.getPlants().values()){
-            StackPane cell = new StackPane();
-            mapGrid.add(cell, plant.getPosition().getX(), sizeY - plant.getPosition().getY() - 1);
-            cell.setStyle("-fx-background-color: green;");
         }
     }
 
