@@ -1,6 +1,6 @@
 package agh.daycare;
 
-import agh.Animal;
+import agh.mapEntities.Animal;
 
 import java.util.Comparator;
 

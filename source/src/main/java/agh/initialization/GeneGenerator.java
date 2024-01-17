@@ -1,7 +1,7 @@
 package agh.initialization;
-import agh.Genes;
-import agh.GenesNormal;
-import agh.GenesSpecial;
+import agh.mapEntities.Genes;
+import agh.mapEntities.GenesNormal;
+import agh.mapEntities.GenesSpecial;
 import agh.daycare.GeneVariant;
 import agh.simple.MapDirection;
 import java.util.*;

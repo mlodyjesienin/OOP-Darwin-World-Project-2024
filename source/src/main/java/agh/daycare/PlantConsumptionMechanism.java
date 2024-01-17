@@ -1,7 +1,9 @@
 package agh.daycare;
 
-import agh.*;
-import agh.WorldMap;
+import agh.mapEntities.WorldMap;
+import agh.mapEntities.Animal;
+import agh.mapEntities.Plant;
+import agh.simple.Vector2d;
 
 import java.util.Comparator;
 import java.util.HashMap;

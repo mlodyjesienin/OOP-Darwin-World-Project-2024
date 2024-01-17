@@ -1,4 +1,6 @@
-package agh;
+package agh.mapEntities;
+
+import agh.simple.Vector2d;
 
 public class Plant implements MapElement {
     private final Vector2d position;

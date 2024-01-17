@@ -1,9 +1,9 @@
 package agh.daycare;
 
-import agh.Animal;
-import agh.Genes;
-import agh.Vector2d;
-import agh.WorldMap;
+import agh.mapEntities.Animal;
+import agh.mapEntities.Genes;
+import agh.simple.Vector2d;
+import agh.mapEntities.WorldMap;
 import agh.simple.Boundary;
 import agh.simple.MapDirection;
 

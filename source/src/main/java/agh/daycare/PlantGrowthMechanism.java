@@ -1,8 +1,8 @@
 package agh.daycare;
 
-import agh.Plant;
-import agh.Vector2d;
-import agh.WorldMap;
+import agh.mapEntities.Plant;
+import agh.simple.Vector2d;
+import agh.mapEntities.WorldMap;
 import agh.simple.Boundary;
 
 import java.util.*;

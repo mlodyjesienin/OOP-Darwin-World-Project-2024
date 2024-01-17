@@ -1,7 +1,7 @@
 package agh.initialization;
 
-import agh.Plant;
-import agh.Vector2d;
+import agh.mapEntities.Plant;
+import agh.simple.Vector2d;
 import agh.simple.Boundary;
 
 import java.util.*;

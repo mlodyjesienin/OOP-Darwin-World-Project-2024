@@ -1,7 +1,7 @@
 package agh.daycare;
-import agh.Animal;
-import agh.Vector2d;
-import agh.WorldMap;
+import agh.mapEntities.Animal;
+import agh.simple.Vector2d;
+import agh.mapEntities.WorldMap;
 
 public class MovingMechanismNormal extends MovingMechanism {
 

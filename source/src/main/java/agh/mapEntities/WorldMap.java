@@ -1,6 +1,10 @@
-package agh;
+package agh.mapEntities;
 
+import agh.mapEntities.Animal;
+import agh.mapEntities.Plant;
 import agh.simple.Boundary;
+import agh.simple.Vector2d;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

@@ -1,17 +1,10 @@
 package agh.engine;
-import agh.Animal;
-import agh.Plant;
-import agh.Vector2d;
-import agh.WorldMap;
+import agh.mapEntities.Animal;
+import agh.mapEntities.Plant;
+import agh.simple.Vector2d;
+import agh.mapEntities.WorldMap;
 import agh.daycare.DayCare;
-import agh.daycare.GeneVariant;
-import agh.daycare.MapVariant;
 import agh.initialization.AnimalGeneration;
-<<<<<<< HEAD
-import agh.initialization.GeneGenerator;
-=======
-import agh.initialization.JungleBoundaries;
->>>>>>> jungle
 import agh.initialization.PlantGeneration;
 import agh.simple.Boundary;
 import agh.ui.SimulationPresenter;
@@ -46,7 +39,7 @@ public class Simulation extends Observable implements Runnable {
         this.dayCare = new DayCare(parameters.mapVariant(), worldMap, parameters.plantsCount(),
                 parameters.energyRequirements(), parameters.energyReproduce(), parameters.maxMutation(),
                 parameters.minMutation(), parameters.energyLoss(), parameters.energyGain());
-        
+
         timeRefresh = parameters.timeRefresh();
     }
 

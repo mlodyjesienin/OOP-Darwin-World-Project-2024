@@ -1,6 +1,6 @@
 package agh.initialization;
 
-import agh.Vector2d;
+import agh.simple.Vector2d;
 
 import java.util.ArrayList;
 import java.util.Collections;
