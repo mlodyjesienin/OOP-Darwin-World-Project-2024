@@ -1,7 +1,5 @@
 package agh.simple;
 
-import agh.Vector2d;
-
 public enum MapDirection {
     NORTH,
     NORTHEAST,

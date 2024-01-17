@@ -1,4 +1,4 @@
-package agh;
+package agh.mapEntities;
 
 import agh.simple.MapDirection;
 

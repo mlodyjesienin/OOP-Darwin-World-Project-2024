@@ -1,5 +1,5 @@
 package agh.daycare;
-import agh.WorldMap;
+import agh.mapEntities.WorldMap;
 
 public class DayCare {
     private int dayCount = 0;

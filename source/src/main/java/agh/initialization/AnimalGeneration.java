@@ -1,9 +1,11 @@
 package agh.initialization;
 
-import agh.*;
 import agh.daycare.GeneVariant;
+import agh.mapEntities.Animal;
+import agh.mapEntities.Genes;
 import agh.simple.Boundary;
 import agh.simple.MapDirection;
+import agh.simple.Vector2d;
 
 import java.util.*;
 

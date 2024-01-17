@@ -1,10 +1,10 @@
-package agh;
+package agh.mapEntities;
 
 import agh.simple.MapDirection;
 
 import java.util.List;
 
-public class GenesNormal extends Genes{
+public class GenesNormal extends Genes {
 
     public GenesNormal(List<MapDirection> genes, int currGene, int geneSize) {
         super(genes, currGene, geneSize);

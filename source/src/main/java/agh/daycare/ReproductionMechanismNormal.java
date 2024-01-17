@@ -1,8 +1,8 @@
 package agh.daycare;
 
-import agh.Genes;
-import agh.GenesNormal;
-import agh.WorldMap;
+import agh.mapEntities.Genes;
+import agh.mapEntities.GenesNormal;
+import agh.mapEntities.WorldMap;
 import agh.simple.MapDirection;
 
 import java.util.List;
