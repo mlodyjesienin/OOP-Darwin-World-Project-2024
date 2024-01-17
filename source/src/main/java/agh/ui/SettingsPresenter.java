@@ -198,7 +198,7 @@ public class SettingsPresenter {
             stage.show();
 
             Simulation simulation = new Simulation(0, MapVariant.EARTH, mapHeightVal, mapWidthVal,
-                    startPlantsVal, growingPlantsVal, startAnimalsVal, 36, 3, 3, 3, 3, 4, 5, 15);
+                    startPlantsVal, growingPlantsVal, startAnimalsVal, 36, 3, 3, 3, 3, 4, 1, 15);
             simulation.registerPresenter(loader.getController());
             engine.runAsyncInThreadPool(simulation);
         }
