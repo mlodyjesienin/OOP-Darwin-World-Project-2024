@@ -91,6 +91,10 @@
             <Label text="Gene size:" />
             <TextField fx:id="geneSize" maxWidth="80"/>
             <Label fx:id="badSizeValue" textFill="red" visible="false" />
+
+            <Label text="Time refresh:" />
+            <TextField fx:id="timeRefresh" maxWidth="80"/>
+            <Label fx:id="badTimeRefresh" textFill="red" visible="false" />
         </VBox>
     </HBox>
     <HBox alignment="CENTER">

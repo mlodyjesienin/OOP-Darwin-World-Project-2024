@@ -18,6 +18,7 @@ public class Simulation extends Observable implements Runnable {
     private SimulationPresenter presenter;
     private final DayCare dayCare;
     private final WorldMap worldMap;
+    private final int timeRefresh;
 
     public Simulation(Parameters parameters){
 
@@ -37,6 +38,7 @@ public class Simulation extends Observable implements Runnable {
         this.dayCare = new DayCare(parameters.mapVariant(), worldMap, parameters.plantsCount(),
                 parameters.energyRequirements(), parameters.energyReproduce(), parameters.maxMutation(),
                 parameters.minMutation(), parameters.energyLoss(), parameters.energyGain());
+        timeRefresh = parameters.timeRefresh();
     }
 
     public void registerPresenter(SimulationPresenter presenter){
@@ -46,14 +48,14 @@ public class Simulation extends Observable implements Runnable {
 
     @Override
     public void run() {
-        for(int i = 0; i < 100; i++) {
+        while (!presenter.simulationClosed) {
             dayCare.simulateDay();
             presenter.mapChanged(dayCare);
 
             try {
-                Thread.sleep(800);
+                Thread.sleep(timeRefresh);
             }
-            catch (InterruptedException exception){
+            catch (InterruptedException e){
                 System.out.println("Thread interrupted!");
             }
         }

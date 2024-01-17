@@ -16,6 +16,7 @@ import java.util.List;
 
 public class SimulationPresenter {
     private WorldMap map;
+    public boolean simulationClosed = false;
     @FXML
     private GridPane mapGrid;
 

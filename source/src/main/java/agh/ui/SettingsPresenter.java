@@ -44,6 +44,8 @@ public class SettingsPresenter {
     @FXML
     private TextField energyGain;
     @FXML
+    private TextField timeRefresh;
+    @FXML
     private Label badWValue;
     @FXML
     private Label badHValue;
@@ -73,6 +75,8 @@ public class SettingsPresenter {
     private Label noMapVariant;
     @FXML
     private Label noGeneVariant;
+    @FXML
+    private Label badTimeRefresh;
     @FXML
     private ComboBox<String> mapVariant;
     @FXML
@@ -410,11 +414,11 @@ public class SettingsPresenter {
         }
 
         paramText = mapVariant.getValue();
-        MapVariant mapVariantValue = MapVariant.EARTH;
+        MapVariant mapVariantVal = MapVariant.EARTH;
         if (paramText != null){
             noMapVariant.setVisible(false);
             if (paramText.equals("PORTALS")){
-                mapVariantValue = MapVariant.PORTALS;
+                mapVariantVal = MapVariant.PORTALS;
             }
         }
         else {
@@ -424,16 +428,37 @@ public class SettingsPresenter {
         }
 
         paramText = geneVariant.getValue();
-        GeneVariant geneVariantValue = GeneVariant.NORMAL;
+        GeneVariant geneVariantVal = GeneVariant.NORMAL;
         if (paramText != null){
             noGeneVariant.setVisible(false);
             if (paramText.equals("SPECIAL")){
-                geneVariantValue = GeneVariant.SPECIAL;
+                geneVariantVal = GeneVariant.SPECIAL;
             }
         }
         else {
             noGeneVariant.setText("no gene variant chosen!");
             noGeneVariant.setVisible(true);
+            canStart = false;
+        }
+
+        paramText = timeRefresh.getText();
+        int timeRefreshVal = 1;
+        try {
+            timeRefreshVal = Integer.parseInt(paramText);
+            badTimeRefresh.setVisible(false);
+
+            if (timeRefreshVal > 0){
+                badTimeRefresh.setVisible(false);
+            }
+            else {
+                badTimeRefresh.setText("time refresh must be greater than 0!");
+                badTimeRefresh.setVisible(true);
+                canStart = false;
+            }
+        }
+        catch (NumberFormatException e){
+            badTimeRefresh.setText("bad time refresh value!");
+            badTimeRefresh.setVisible(true);
             canStart = false;
         }
 
@@ -445,13 +470,21 @@ public class SettingsPresenter {
             configureStage(stage, viewRoot);
             stage.show();
 
-            Parameters parameters = new Parameters(geneVariantValue, mapVariantValue, mapHeightVal, mapWidthVal,
+            Parameters parameters = new Parameters(geneVariantVal, mapVariantVal, mapHeightVal, mapWidthVal,
                     startPlantsVal, growingPlantsVal, startAnimalsVal, startEnergyVal, energyRequiredVal,
-                    energyReproduceVal, maxMutationVal, minMutationVal, geneSizeVal, energyLossVal, energyGainVal);
+                    energyReproduceVal, maxMutationVal, minMutationVal, geneSizeVal, energyLossVal,
+                    energyGainVal, timeRefreshVal);
             Simulation simulation = new Simulation(parameters);
             simulation.registerPresenter(loader.getController());
             engine.runAsyncInThreadPool(simulation);
+
+            stage.setOnCloseRequest(event -> handleCloseRequest(stage, loader.getController()));
         }
+    }
+
+    private void handleCloseRequest(Stage stage, SimulationPresenter simulationPresenter){
+        simulationPresenter.simulationClosed = true;
+        stage.close();
     }
 
     private void configureStage(Stage primaryStage, VBox viewRoot){
