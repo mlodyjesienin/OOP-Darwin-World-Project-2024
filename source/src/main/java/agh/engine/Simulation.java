@@ -7,7 +7,11 @@ import agh.daycare.DayCare;
 import agh.daycare.GeneVariant;
 import agh.daycare.MapVariant;
 import agh.initialization.AnimalGeneration;
+<<<<<<< HEAD
 import agh.initialization.GeneGenerator;
+=======
+import agh.initialization.JungleBoundaries;
+>>>>>>> jungle
 import agh.initialization.PlantGeneration;
 import agh.simple.Boundary;
 import agh.ui.SimulationPresenter;
@@ -27,17 +31,22 @@ public class Simulation extends Observable implements Runnable {
 
         AnimalGeneration animalGeneration = new AnimalGeneration(boundary, parameters.startAnimals(),
                 parameters.startEnergy(), parameters.geneSize(), parameters.geneVariant());
+
         PlantGeneration plantGeneration = new PlantGeneration(boundary, parameters.startPlants());
 
         Map<Vector2d, List<Animal>> animals = animalGeneration.getAnimals();
 
         Map<Vector2d, Plant> plants = plantGeneration.getPlants();
 
-        worldMap = new WorldMap(boundary,animals,plants);
+        int topJungleRow = plantGeneration.getTopJungleRow();
+        int bottomJungleRow = plantGeneration.getBottomJungleRow();
+
+        worldMap = new WorldMap(boundary,animals,plants,topJungleRow,bottomJungleRow);
 
         this.dayCare = new DayCare(parameters.mapVariant(), worldMap, parameters.plantsCount(),
                 parameters.energyRequirements(), parameters.energyReproduce(), parameters.maxMutation(),
                 parameters.minMutation(), parameters.energyLoss(), parameters.energyGain());
+        
         timeRefresh = parameters.timeRefresh();
     }
 

@@ -469,12 +469,12 @@ public class SettingsPresenter {
             Stage stage = new Stage();
             configureStage(stage, viewRoot);
             stage.show();
-
             Parameters parameters = new Parameters(geneVariantVal, mapVariantVal, mapHeightVal, mapWidthVal,
                     startPlantsVal, growingPlantsVal, startAnimalsVal, startEnergyVal, energyRequiredVal,
                     energyReproduceVal, maxMutationVal, minMutationVal, geneSizeVal, energyLossVal,
                     energyGainVal, timeRefreshVal);
             Simulation simulation = new Simulation(parameters);
+
             simulation.registerPresenter(loader.getController());
             engine.runAsyncInThreadPool(simulation);
 
