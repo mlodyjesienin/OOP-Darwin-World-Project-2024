@@ -19,7 +19,7 @@
     <VBox alignment="BOTTOM_CENTER">
         <padding><Insets left="20" bottom="25"/></padding>
         <Button fx:id="stopSimulation" text="STOP" onAction="#onSimulationStopClicked"
-                minWidth="120" minHeight="60" style="-fx-font-size: 16; -fx-font-weight: bold"/>
+                minWidth="150" minHeight="60" style="-fx-font-size: 16; -fx-font-weight: bold"/>
     </VBox>
 
 </HBox>

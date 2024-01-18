@@ -7,16 +7,18 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+
 import java.util.List;
 
 public class SimulationPresenter {
     private WorldMap map;
+    private int referenceEnergy;
     public boolean simulationClosed = false;
     public volatile boolean pauseSimulation = false;
     @FXML
@@ -26,6 +28,10 @@ public class SimulationPresenter {
 
     public void setWorldMap(WorldMap map){
         this.map = map;
+    }
+
+    public void setReferenceEnergy(int energy){
+        referenceEnergy = energy;
     }
 
     @FXML
@@ -79,6 +85,31 @@ public class SimulationPresenter {
             }
 
             ImageView imageView = new ImageView(image);
+            int colorValue = (240 - 50) / referenceEnergy * an.get(0).getEnergy();
+            Color overlayColor = Color.rgb(Math.max(240 - colorValue, 50), 0, 0);
+            PixelReader pixelReader = imageView.getImage().getPixelReader();
+            int width = (int)imageView.getImage().getWidth();
+            int height = (int)imageView.getImage().getHeight();
+
+            WritableImage newImage = new WritableImage(width, height);
+            PixelWriter pixelWriter = newImage.getPixelWriter();
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    Color originalColor = pixelReader.getColor(x, y);
+
+                    Color newColor = new Color(
+                            overlayColor.getRed(),
+                            overlayColor.getGreen(),
+                            overlayColor.getBlue(),
+                            originalColor.getOpacity()
+                    );
+
+                    pixelWriter.setColor(x, y, newColor);
+                }
+            }
+
+            imageView.setImage(newImage);
             imageView.setFitWidth(cellSize * 0.8);
             imageView.setFitHeight(cellSize * 0.8);
             GridPane.setHalignment(imageView, HPos.CENTER);
