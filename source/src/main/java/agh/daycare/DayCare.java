@@ -9,7 +9,8 @@ public class DayCare {
     private final PlantGrowthMechanism plantGrowthMechanism;
     private final ReproductionMechanism reproductionMechanism;
     public final WorldMap worldMap;
-    final Statisticer statisticer;
+    private final Statisticer statisticer;
+
     public DayCare(MapVariant mapVariant, GeneVariant geneVariant, WorldMap worldMap, int plantsCount, int energyRequirements, int energyReproduce,
                    int maxMutation, int minMutation, int energyLoss, int energyGain){
         this.worldMap = worldMap;
@@ -38,6 +39,10 @@ public class DayCare {
         plantGrowthMechanism = new PlantGrowthMechanism(this,plantsCount);
         plantConsumptionMechanism = new PlantConsumptionMechanism(energyGain, this);
         statisticer = new Statisticer(this);
+    }
+
+    public Statisticer getStatisticer(){
+        return statisticer;
     }
 
     public int getDayCount() {

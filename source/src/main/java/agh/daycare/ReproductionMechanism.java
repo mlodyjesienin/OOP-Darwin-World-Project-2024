@@ -68,7 +68,7 @@ public abstract class ReproductionMechanism {
         Animal child =  new Animal(dad.getPosition(),dayCare.getDayCount(),2*energyReproduce,newGenome(dad,mom), startDirection);
         dad.setEnergy(dad.getEnergy() - energyReproduce);
         mom.setEnergy(mom.getEnergy() - energyReproduce);
-        dayCare.statisticer.birthEvent();
+        dayCare.getStatisticer().birthEvent();
         return child;
     }
 

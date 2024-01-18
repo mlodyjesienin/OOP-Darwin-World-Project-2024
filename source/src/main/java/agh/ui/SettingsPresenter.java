@@ -632,7 +632,7 @@ public class SettingsPresenter implements Initializable {
     private void configureStage(Stage primaryStage, HBox viewRoot){
         var scene = new Scene(viewRoot);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Simulation App");
+        primaryStage.setTitle("Darvin World");
         primaryStage.getIcons().add(new Image("images/icon.ico"));
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());

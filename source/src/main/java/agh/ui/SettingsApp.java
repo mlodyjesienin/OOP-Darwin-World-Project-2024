@@ -28,7 +28,7 @@ public class SettingsApp extends Application {
     private void configureStage(Stage primaryStage, VBox viewRoot){
         var scene = new Scene(viewRoot);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Settings");
+        primaryStage.setTitle("Settings - Darvin World");
         primaryStage.getIcons().add(new Image("images/icon.ico"));
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());

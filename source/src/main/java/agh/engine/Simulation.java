@@ -45,6 +45,7 @@ public class  Simulation implements Runnable {
     public void registerPresenter(SimulationPresenter presenter){
         this.presenter = presenter;
         presenter.setWorldMap(worldMap);
+        presenter.setStatisticer(dayCare.getStatisticer());
     }
 
     @Override

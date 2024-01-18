@@ -7,7 +7,7 @@ import agh.simple.Vector2d;
 
 import java.util.*;
 
-public class Statisticer{
+public class Statisticer {
     public boolean extendedStatisticsSHOW = false;
     public int dayCount;
     public int deathCount = 0;
@@ -54,7 +54,7 @@ public class Statisticer{
     }
 
     private void standardStatistics(){
-        dayCount ++;
+        dayCount++;
         averageLifeLength = (float) sumLifeLength/deathCount;
     }
     private void extendedStatistics(){

@@ -53,7 +53,7 @@ public class PlantConsumptionMechanism {
         animal.setEnergy(animal.getEnergy() + energyGain);
         animal.setPlantsEaten(animal.getPlantsEaten() + 1);
         plantGrowthMechanism.addAvailablePosition(plant.getPosition());
-        dayCare.statisticer.plantEatenEvent();
+        dayCare.getStatisticer().plantEatenEvent();
     }
     private Animal resolveConflict(List<Animal> animalList) {
         Animal bestAnimal = animalList.get(0);

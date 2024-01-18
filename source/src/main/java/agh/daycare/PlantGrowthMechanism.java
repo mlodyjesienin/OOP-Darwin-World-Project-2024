@@ -73,7 +73,7 @@ public class PlantGrowthMechanism {
             }
             Plant plant = new Plant(position);
             plants.put(position,plant);
-            dayCare.statisticer.plantGrowthEvent();
+            dayCare.getStatisticer().plantGrowthEvent();
 
         }
     }

@@ -3,15 +3,14 @@ import agh.mapEntities.Animal;
 import agh.mapEntities.Plant;
 import agh.mapEntities.WorldMap;
 import agh.daycare.DayCare;
+import agh.statistics.Statisticer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -25,13 +24,65 @@ public class SimulationPresenter {
     private GridPane mapGrid;
     @FXML
     private Button stopSimulation;
+    @FXML
+    private Button showStats;
+    @FXML
+    private VBox mapStats;
+    @FXML
+    private VBox animalStats;
+    @FXML
+    private Label animalsCount;
+    @FXML
+    private Label plantsCount;
+    @FXML
+    private Label freeFields;
+    @FXML
+    private Label commonGene;
+    @FXML
+    private Label avgEnergy;
+    @FXML
+    private Label avgLive;
+    @FXML
+    private Label avgChildren;
+    @FXML
+    private Label animalEnergy;
+    private Statisticer statisticer;
 
     public void setWorldMap(WorldMap map){
         this.map = map;
     }
 
+    public void setStatisticer(Statisticer statisticer){
+        this.statisticer = statisticer;
+    }
+
     public void setReferenceEnergy(int energy){
         referenceEnergy = energy;
+    }
+
+    @FXML
+    public void onShowStatsClicked(){
+        if (showStats.getText().equals("Show stats")){
+            showStats.setText("Hide stats");
+        }
+        else {
+            showStats.setText("Show stats");
+        }
+
+        mapStats.setVisible(!mapStats.isVisible());
+        mapStats.setManaged(!mapStats.isManaged());
+        updateMapStats();
+    }
+
+    @FXML
+    private void updateMapStats(){
+        animalsCount.setText("Alive animals: " + statisticer.currAliveCount);
+        plantsCount.setText("Number of plants: " + statisticer.currPlantCount);
+        freeFields.setText("Free fields: " + statisticer.availableSpace);
+        commonGene.setText("Most common gene: " + statisticer.popularGenome);
+        avgEnergy.setText("Average energy level: " + Math.round(statisticer.averageEnergy));
+        avgLive.setText("Average life time: " + Math.round(statisticer.averageLifeLength));
+        avgChildren.setText("Average children count: " + Math.round(statisticer.averageChildren));
     }
 
     @FXML
@@ -49,6 +100,7 @@ public class SimulationPresenter {
     public void mapChanged(DayCare dayCare){
         Platform.runLater(() -> {
             drawMap(dayCare);
+            updateMapStats();
         });
     }
 
@@ -112,9 +164,20 @@ public class SimulationPresenter {
             imageView.setImage(newImage);
             imageView.setFitWidth(cellSize * 0.8);
             imageView.setFitHeight(cellSize * 0.8);
+
             GridPane.setHalignment(imageView, HPos.CENTER);
+            imageView.setOnMouseClicked(event -> handleLabelClick(an.get(0)));
             mapGrid.add(imageView, an.get(0).getPosition().getX(), sizeY - an.get(0).getPosition().getY() - 1);
         }
+    }
+
+    private void handleLabelClick(Animal animal){
+        //animalStats.setVisible(!mapStats.isVisible());
+        //animalStats.setManaged(!mapStats.isManaged());
+    }
+
+    private void updateAnimalStats(){
+        //animalEnergy.setText("Energy: " + animal.getEnergy());
     }
 
     private void clearGrid(int sizeX, int sizeY){
