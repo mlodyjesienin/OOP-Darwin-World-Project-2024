@@ -1,4 +1,5 @@
 package agh.daycare;
+import agh.statistics.Statisticer;
 import agh.mapEntities.WorldMap;
 
 public class DayCare {
@@ -8,31 +9,42 @@ public class DayCare {
     private final PlantGrowthMechanism plantGrowthMechanism;
     private final ReproductionMechanism reproductionMechanism;
     public final WorldMap worldMap;
-    public DayCare(MapVariant mapVariant, WorldMap worldMap, int plantsCount, int energyRequirements, int energyReproduce,
+    final Statisticer statisticer;
+    public DayCare(MapVariant mapVariant, GeneVariant geneVariant, WorldMap worldMap, int plantsCount, int energyRequirements, int energyReproduce,
                    int maxMutation, int minMutation, int energyLoss, int energyGain){
         this.worldMap = worldMap;
 
         switch (mapVariant){
             case EARTH -> {
                 movingMechanism = new MovingMechanismNormal(worldMap,energyLoss,this);
-                reproductionMechanism = new ReproductionMechanismNormal(worldMap, energyRequirements,
-                        energyReproduce, maxMutation, minMutation, this);
             }
             case PORTALS -> {
                 movingMechanism = new MovingMechanismSpecial(worldMap, energyLoss, this, energyReproduce);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + mapVariant);
+        }
+        switch (geneVariant){
+            case NORMAL -> {
+                reproductionMechanism = new ReproductionMechanismNormal(worldMap, energyRequirements,
+                        energyReproduce, maxMutation, minMutation, this);
+            }
+            case SPECIAL -> {
                 reproductionMechanism = new ReproductionMechanismSpecial(worldMap, energyRequirements,
                         energyReproduce, maxMutation, minMutation, this);
             }
             default -> throw new IllegalStateException("Unexpected value: " + mapVariant);
         }
 
-        plantGrowthMechanism = new PlantGrowthMechanism(worldMap,plantsCount);
-        plantConsumptionMechanism = new PlantConsumptionMechanism(worldMap, energyGain, plantGrowthMechanism);
+        plantGrowthMechanism = new PlantGrowthMechanism(this,plantsCount);
+        plantConsumptionMechanism = new PlantConsumptionMechanism(energyGain, this);
+        statisticer = new Statisticer(this);
     }
 
     public int getDayCount() {
         return dayCount;
     }
+
+    public PlantGrowthMechanism getPlantGrowthMechanism() {return plantGrowthMechanism;}
 
     public void simulateDay(){
         dayCount++;
@@ -40,6 +52,7 @@ public class DayCare {
         plantConsumptionMechanism.work();
         reproductionMechanism.work();
         plantGrowthMechanism.work();
+        statisticer.showStats();
     }
 
 }

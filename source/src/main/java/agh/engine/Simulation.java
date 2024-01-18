@@ -10,8 +10,7 @@ import agh.simple.Boundary;
 import agh.ui.SimulationPresenter;
 import java.util.*;
 
-public class Simulation extends Observable implements Runnable {
-    private final Observer statisticer = new Statisticer();
+public class  Simulation implements Runnable {
     private SimulationPresenter presenter;
     private final DayCare dayCare;
     private final WorldMap worldMap;
@@ -36,7 +35,7 @@ public class Simulation extends Observable implements Runnable {
 
         worldMap = new WorldMap(boundary,animals,plants,topJungleRow,bottomJungleRow);
 
-        this.dayCare = new DayCare(parameters.mapVariant(), worldMap, parameters.plantsCount(),
+        this.dayCare = new DayCare(parameters.mapVariant(), parameters.geneVariant(), worldMap, parameters.plantsCount(),
                 parameters.energyRequirements(), parameters.energyReproduce(), parameters.maxMutation(),
                 parameters.minMutation(), parameters.energyLoss(), parameters.energyGain());
 

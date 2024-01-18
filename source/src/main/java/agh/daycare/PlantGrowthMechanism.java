@@ -17,9 +17,11 @@ public class PlantGrowthMechanism {
     private Map<Vector2d, Plant> plants;
     private final List<Vector2d> desertAvailable;
     private final List<Vector2d>  jungleAvailable;
-    PlantGrowthMechanism(WorldMap worldMap, int plantsCount){
-        Boundary boundary = worldMap.getBoundary();
-        this.worldMap = worldMap;
+    private final DayCare dayCare;
+    PlantGrowthMechanism(DayCare dayCare, int plantsCount){
+        this.dayCare = dayCare;
+        this.worldMap = dayCare.worldMap;
+        Boundary boundary =worldMap.getBoundary();
         this.topJungleRow = worldMap.getTopJungleRow();
         this.bottomJungleRow = worldMap.getBottomJungleRow();
         this.plants = worldMap.getPlants();
@@ -71,6 +73,12 @@ public class PlantGrowthMechanism {
             }
             Plant plant = new Plant(position);
             plants.put(position,plant);
+            dayCare.statisticer.plantGrowthEvent();
+
         }
     }
+
+    public List<Vector2d> getDesertAvailable() {return desertAvailable;}
+
+    public List<Vector2d> getJungleAvailable() {return jungleAvailable;}
 }
