@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Set;
 
 public class StalkedAnimal {
-    Animal stalkedAnimal;
-    int energy;
-    int plantsEaten;
-    final List<Integer> genes;
-    int currGene;
-    int age;
-    int childCount;
-    int descendants;
-    Integer deathDate = null;
+    private final Animal stalkedAnimal;
+    public int energy;
+    public int plantsEaten;
+    public final List<Integer> genes;
+    public int currGene;
+    public int age;
+    public int childCount;
+    public int descendants;
+    public Integer deathDate = null;
     StalkedAnimal(Animal animal, int currDay){
         stalkedAnimal = animal;
         energy = stalkedAnimal.getEnergy();
@@ -28,6 +28,10 @@ public class StalkedAnimal {
         MapDirection currGeneDirection = stalkedAnimal.getGenes().getGenes().get(stalkedAnimal.getGenes().getCurrGene());
         currGene = currGeneDirection.directionToInt();
         descendants = findAllDescendants();
+    }
+
+    public Animal getStalkedAnimal(){
+        return stalkedAnimal;
     }
 
     private List<Integer> genesAsIntegers(List<MapDirection> genes){

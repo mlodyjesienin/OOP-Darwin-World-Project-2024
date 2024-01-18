@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SettingsPresenter implements Initializable {
+public class SettingsPresenter {
     @FXML
     private TextField mapWidth;
     @FXML
@@ -97,8 +97,8 @@ public class SettingsPresenter implements Initializable {
     private ComboBox<String> configuration;
     private final SimulationEngine engine = new SimulationEngine();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources){
+    @FXML
+    public void initialize(){
         updateConfigurations();
     }
 

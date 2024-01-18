@@ -121,7 +121,7 @@ public class Statisticer {
     }
 
     public void startStalking(Animal animal){
-        stalkedAnimal = new StalkedAnimal(animal,dayCare.getDayCount());
+        stalkedAnimal = new StalkedAnimal(animal, dayCare.getDayCount());
     }
     public void stopStalking(){stalkedAnimal = null;}
     public void startExtendedStatistics(){

@@ -1,4 +1,5 @@
 package agh.ui;
+import agh.daycare.BetterAnimal;
 import agh.mapEntities.Animal;
 import agh.mapEntities.Plant;
 import agh.mapEntities.WorldMap;
@@ -7,13 +8,14 @@ import agh.statistics.Statisticer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-
-import java.util.List;
+import javafx.scene.input.MouseEvent;
+import java.util.List;;
 
 public class SimulationPresenter {
     private WorldMap map;
@@ -46,7 +48,39 @@ public class SimulationPresenter {
     private Label avgChildren;
     @FXML
     private Label animalEnergy;
+    @FXML
+    private Label days;
+    @FXML
+    private Label eatenPlants;
+    @FXML
+    private Label childCount;
+    @FXML
+    private Label descendants;
+    @FXML
+    private Label genes;
+    @FXML
+    private Label currGene;
+    @FXML
+    private Label age;
+    @FXML
+    private Label deathDate;
+    @FXML
+    private HBox window;
     private Statisticer statisticer;
+
+    @FXML
+    public void initialize(){
+        window.setOnMouseClicked(this::stopObserveClick);
+    }
+
+    private void stopObserveClick(MouseEvent event){
+        Node clickedNode = event.getPickResult().getIntersectedNode();
+        if (!(clickedNode instanceof ImageView)){
+            statisticer.stopStalking();
+            animalStats.setVisible(false);
+            animalStats.setManaged(false);
+        }
+    }
 
     public void setWorldMap(WorldMap map){
         this.map = map;
@@ -76,6 +110,7 @@ public class SimulationPresenter {
 
     @FXML
     private void updateMapStats(){
+        days.setText("Day: " + statisticer.dayCount);
         animalsCount.setText("Alive animals: " + statisticer.currAliveCount);
         plantsCount.setText("Number of plants: " + statisticer.currPlantCount);
         freeFields.setText("Free fields: " + statisticer.availableSpace);
@@ -89,11 +124,11 @@ public class SimulationPresenter {
     public void onSimulationStopClicked(){
         pauseSimulation = !pauseSimulation;
 
-        if (stopSimulation.getText().equals("STOP")){
-            stopSimulation.setText("START");
+        if (stopSimulation.getText().equals("PAUSE")){
+            stopSimulation.setText("RESUME");
         }
         else {
-            stopSimulation.setText("STOP");
+            stopSimulation.setText("PAUSE");
         }
     }
 
@@ -101,6 +136,10 @@ public class SimulationPresenter {
         Platform.runLater(() -> {
             drawMap(dayCare);
             updateMapStats();
+
+            if (statisticer.stalkedAnimal != null){
+                updateAnimalStats();
+            }
         });
     }
 
@@ -125,7 +164,9 @@ public class SimulationPresenter {
 
         Image image = new Image("images/animal1.png");
         for (List<Animal> an: map.getAnimals().values()){
-            switch (an.get(0).getDirection()){
+            Animal animal = bestAnimal(an);
+
+            switch (animal.getDirection()){
                 case NORTH -> image = new Image("images/animal1.png");
                 case NORTHEAST -> image = new Image("images/animal2.png");
                 case EAST -> image = new Image("images/animal3.png");
@@ -137,7 +178,7 @@ public class SimulationPresenter {
             }
 
             ImageView imageView = new ImageView(image);
-            int colorValue = (240 - 50) / referenceEnergy * an.get(0).getEnergy();
+            int colorValue = (240 - 50) / referenceEnergy * animal.getEnergy();
             Color overlayColor = Color.rgb(Math.max(240 - colorValue, 50), 0, 0);
             PixelReader pixelReader = imageView.getImage().getPixelReader();
             int width = (int)imageView.getImage().getWidth();
@@ -166,18 +207,42 @@ public class SimulationPresenter {
             imageView.setFitHeight(cellSize * 0.8);
 
             GridPane.setHalignment(imageView, HPos.CENTER);
-            imageView.setOnMouseClicked(event -> handleLabelClick(an.get(0)));
-            mapGrid.add(imageView, an.get(0).getPosition().getX(), sizeY - an.get(0).getPosition().getY() - 1);
+            imageView.setOnMouseClicked(event -> handleLabelClick(animal));
+            mapGrid.add(imageView, animal.getPosition().getX(), sizeY - animal.getPosition().getY() - 1);
         }
     }
 
     private void handleLabelClick(Animal animal){
-        //animalStats.setVisible(!mapStats.isVisible());
-        //animalStats.setManaged(!mapStats.isManaged());
+        statisticer.stopStalking();
+        statisticer.startStalking(animal);
+
+        animalStats.setVisible(true);
+        animalStats.setManaged(true);
+        updateAnimalStats();
     }
 
     private void updateAnimalStats(){
-        //animalEnergy.setText("Energy: " + animal.getEnergy());
+        animalEnergy.setText("Energy: " + statisticer.stalkedAnimal.getStalkedAnimal().getEnergy());
+        eatenPlants.setText("Plants eaten: " + statisticer.stalkedAnimal.plantsEaten);
+        childCount.setText("Child count: " + statisticer.stalkedAnimal.childCount);
+        descendants.setText("Descendants: " + statisticer.stalkedAnimal.descendants);
+        genes.setText("Genes: " + statisticer.stalkedAnimal.genes);
+        currGene.setText("Current gene: " + statisticer.stalkedAnimal.currGene);
+        age.setText("Age: " + statisticer.stalkedAnimal.age);
+        deathDate.setText("Death date: " + statisticer.stalkedAnimal.deathDate);
+    }
+
+    public Animal bestAnimal(List<Animal> animalList) {
+        BetterAnimal betterAnimal = new BetterAnimal();
+        Animal bestAnimal = animalList.get(0);
+        for (Animal animal: animalList) {
+            bestAnimal = switch (betterAnimal.reversed().compare(animal, bestAnimal)){
+                case 1 -> bestAnimal;
+                case -1 -> animal;
+                default -> bestAnimal;
+            };
+        }
+        return bestAnimal;
     }
 
     private void clearGrid(int sizeX, int sizeY){
