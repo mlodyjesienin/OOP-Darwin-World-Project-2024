@@ -210,10 +210,15 @@ public class SettingsPresenter implements Initializable {
 
             Simulation simulation = new Simulation(parameters);
             simulation.registerPresenter(loader.getController());
+            setReferenceEnergy(loader.getController(), parameters.startEnergy());
             engine.runAsyncInThreadPool(simulation);
 
             stage.setOnCloseRequest(event -> handleCloseRequest(stage, loader.getController()));
         }
+    }
+
+    private void setReferenceEnergy(SimulationPresenter controller, int energy){
+        controller.setReferenceEnergy(energy);
     }
 
     private Parameters testParameters(){
