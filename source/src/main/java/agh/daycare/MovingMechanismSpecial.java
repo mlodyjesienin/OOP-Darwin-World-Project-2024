@@ -1,13 +1,11 @@
 package agh.daycare;
-
 import agh.mapEntities.Animal;
 import agh.simple.Vector2d;
 import agh.mapEntities.WorldMap;
-
 import java.util.Random;
 
 public class MovingMechanismSpecial extends MovingMechanism{
-    private final int  energyReproduce;
+    private final int energyReproduce;
 
     MovingMechanismSpecial(WorldMap worldMap, int energyLoss, DayCare dayCare, int energyReproduce) {
         super(worldMap, energyLoss, dayCare);

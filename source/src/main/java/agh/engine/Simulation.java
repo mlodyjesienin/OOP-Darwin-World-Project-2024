@@ -56,7 +56,7 @@ public class  Simulation implements Runnable {
             }
 
             dayCare.simulateDay();
-            presenter.mapChanged(dayCare);
+            presenter.mapChanged();
 
             try {
                 Thread.sleep(timeRefresh);

@@ -1,11 +1,9 @@
 package agh.statistics;
-
 import agh.daycare.BetterAnimal;
 import agh.daycare.DayCare;
 import agh.mapEntities.Animal;
 import agh.simple.MapDirection;
 import agh.simple.Vector2d;
-
 import java.util.*;
 
 public class Statisticer {
@@ -19,7 +17,7 @@ public class Statisticer {
     public float averageEnergy = 0;
     public float averageChildren = 0;
     public List<Integer> popularGenome = new ArrayList<>();
-    public int availableSpace =0;
+    public int availableSpace = 0;
     public StalkedAnimal stalkedAnimal = null;
     private final DayCare dayCare;
 
@@ -125,11 +123,15 @@ public class Statisticer {
         stalkedAnimal = new StalkedAnimal(animal, dayCare.getDayCount());
     }
     public void stopStalking(){stalkedAnimal = null;}
+
     public void startExtendedStatistics(){
         extendedStatisticsSHOW = true;
         extendedStatistics();
     }
-    public void stopExtendedStatistics(){extendedStatisticsSHOW = false;}
+    public void stopExtendedStatistics(){
+        extendedStatisticsSHOW = false;
+    }
+
     public Animal bestAnimal(List<Animal> animalList) {
         BetterAnimal betterAnimal = new BetterAnimal();
         Animal bestAnimal = animalList.get(0);

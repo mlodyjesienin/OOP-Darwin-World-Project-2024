@@ -1,8 +1,6 @@
 package agh.statistics;
-
 import agh.mapEntities.Animal;
 import agh.simple.MapDirection;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

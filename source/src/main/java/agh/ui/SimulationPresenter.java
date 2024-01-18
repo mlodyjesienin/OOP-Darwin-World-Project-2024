@@ -1,9 +1,7 @@
 package agh.ui;
-import agh.daycare.BetterAnimal;
 import agh.mapEntities.Animal;
 import agh.mapEntities.Plant;
 import agh.mapEntities.WorldMap;
-import agh.daycare.DayCare;
 import agh.statistics.Statisticer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -110,6 +108,7 @@ public class SimulationPresenter {
 
     @FXML
     private void updateMapStats(){
+        statisticer.startExtendedStatistics();
         days.setText("Day: " + statisticer.dayCount);
         animalsCount.setText("Alive animals: " + statisticer.currAliveCount);
         plantsCount.setText("Number of plants: " + statisticer.currPlantCount);
@@ -117,7 +116,7 @@ public class SimulationPresenter {
         commonGene.setText("Most common gene: " + statisticer.popularGenome);
         avgEnergy.setText("Average energy level: " + Math.round(statisticer.averageEnergy));
         avgLive.setText("Average life time: " + Math.round(statisticer.averageLifeLength));
-        avgChildren.setText("Average children count: " + Math.round(statisticer.averageChildren));
+        avgChildren.setText("Average child count: " + Math.round(statisticer.averageChildren));
     }
 
     @FXML
@@ -132,9 +131,9 @@ public class SimulationPresenter {
         }
     }
 
-    public void mapChanged(DayCare dayCare){
+    public void mapChanged(){
         Platform.runLater(() -> {
-            drawMap(dayCare);
+            drawMap();
             updateMapStats();
 
             if (statisticer.stalkedAnimal != null){
@@ -143,7 +142,7 @@ public class SimulationPresenter {
         });
     }
 
-    private void drawMap(DayCare dayCare){
+    private void drawMap(){
         int sizeX = map.getBoundary().upperCorner().getX() - map.getBoundary().lowerCorner().getX() + 1;
         int sizeY = map.getBoundary().upperCorner().getY() - map.getBoundary().lowerCorner().getY() + 1;
         double cellSize = (mapGrid.getScene().getWindow().getHeight() - 100) / sizeY;
@@ -164,7 +163,7 @@ public class SimulationPresenter {
 
         Image image = new Image("images/animal1.png");
         for (List<Animal> an: map.getAnimals().values()){
-            Animal animal = bestAnimal(an);
+            Animal animal = statisticer.bestAnimal(an);
 
             switch (animal.getDirection()){
                 case NORTH -> image = new Image("images/animal1.png");
@@ -222,27 +221,21 @@ public class SimulationPresenter {
     }
 
     private void updateAnimalStats(){
-        animalEnergy.setText("Energy: " + statisticer.stalkedAnimal.getStalkedAnimal().getEnergy());
+
+        animalEnergy.setText("Energy: " + Math.max(statisticer.stalkedAnimal.getStalkedAnimal().getEnergy(), 0));
         eatenPlants.setText("Plants eaten: " + statisticer.stalkedAnimal.plantsEaten);
         childCount.setText("Child count: " + statisticer.stalkedAnimal.childCount);
         descendants.setText("Descendants: " + statisticer.stalkedAnimal.descendants);
         genes.setText("Genes: " + statisticer.stalkedAnimal.genes);
         currGene.setText("Current gene: " + statisticer.stalkedAnimal.currGene);
         age.setText("Age: " + statisticer.stalkedAnimal.age);
-        deathDate.setText("Death date: " + statisticer.stalkedAnimal.deathDate);
-    }
 
-    public Animal bestAnimal(List<Animal> animalList) {
-        BetterAnimal betterAnimal = new BetterAnimal();
-        Animal bestAnimal = animalList.get(0);
-        for (Animal animal: animalList) {
-            bestAnimal = switch (betterAnimal.reversed().compare(animal, bestAnimal)){
-                case 1 -> bestAnimal;
-                case -1 -> animal;
-                default -> bestAnimal;
-            };
+        if (statisticer.stalkedAnimal.deathDate == null){
+            deathDate.setText("Death date: alive!");
         }
-        return bestAnimal;
+        else {
+            deathDate.setText("Death date: " + statisticer.stalkedAnimal.deathDate);
+        }
     }
 
     private void clearGrid(int sizeX, int sizeY){

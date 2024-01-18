@@ -1,7 +1,5 @@
 package agh.daycare;
-
 import agh.mapEntities.Animal;
-
 import java.util.Comparator;
 
 public class BetterAnimal implements Comparator<Animal> {
