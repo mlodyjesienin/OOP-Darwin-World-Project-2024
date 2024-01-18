@@ -9,4 +9,4 @@ W celu załadowania jednej z predefiniowanych konfiguracji należy wybrać odpow
 Istnieje także możliwość zapisania własnej konfiguraji: należy wybrać odpowiednie paranetry i potwierdzić przyciskiem `Save`.\
 Symulację można uruchomić przyciskiem `Start`.\
 Śledzenie zwierzaka następuje po naciśnięciu na niego, a przerwanie śledzenia po naciśnięciu w dowolny pusty obszar.\
-Przycisk `PAUSE` zatrzymuje symulację, natomiast `RESUME` wznawia.\
+Przycisk `PAUSE` zatrzymuje symulację, natomiast `RESUME` wznawia.
