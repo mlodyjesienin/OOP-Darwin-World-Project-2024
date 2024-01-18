@@ -51,6 +51,10 @@ public class Simulation extends Observable implements Runnable {
     @Override
     public void run() {
         while (!presenter.simulationClosed) {
+            if (presenter.pauseSimulation){
+                continue;
+            }
+
             dayCare.simulateDay();
             presenter.mapChanged(dayCare);
 

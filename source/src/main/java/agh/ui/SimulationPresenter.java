@@ -6,6 +6,7 @@ import agh.daycare.DayCare;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -17,11 +18,26 @@ import java.util.List;
 public class SimulationPresenter {
     private WorldMap map;
     public boolean simulationClosed = false;
+    public volatile boolean pauseSimulation = false;
     @FXML
     private GridPane mapGrid;
+    @FXML
+    private Button stopSimulation;
 
     public void setWorldMap(WorldMap map){
         this.map = map;
+    }
+
+    @FXML
+    public void onSimulationStopClicked(){
+        pauseSimulation = !pauseSimulation;
+
+        if (stopSimulation.getText().equals("STOP")){
+            stopSimulation.setText("START");
+        }
+        else {
+            stopSimulation.setText("STOP");
+        }
     }
 
     public void mapChanged(DayCare dayCare){

@@ -14,7 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
@@ -203,7 +203,7 @@ public class SettingsPresenter implements Initializable {
         if (parameters != null){
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
-            VBox viewRoot = loader.load();
+            HBox viewRoot = loader.load();
             Stage stage = new Stage();
             configureStage(stage, viewRoot);
             stage.show();
@@ -624,7 +624,7 @@ public class SettingsPresenter implements Initializable {
         engine.stopEngine();
     }
 
-    private void configureStage(Stage primaryStage, VBox viewRoot){
+    private void configureStage(Stage primaryStage, HBox viewRoot){
         var scene = new Scene(viewRoot);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Simulation App");

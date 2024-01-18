@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
-
 <?import javafx.scene.layout.StackPane?>
-<VBox xmlns="http://javafx.com/javafx"
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       minWidth="1280.0" minHeight="720.0"
       spacing="10" alignment="CENTER"
@@ -13,4 +16,10 @@
     <GridPane fx:id="mapGrid" alignment="CENTER">
         <StackPane/>
     </GridPane>
-</VBox>
+    <VBox alignment="BOTTOM_CENTER">
+        <padding><Insets left="20" bottom="25"/></padding>
+        <Button fx:id="stopSimulation" text="STOP" onAction="#onSimulationStopClicked"
+                minWidth="120" minHeight="60" style="-fx-font-size: 16; -fx-font-weight: bold"/>
+    </VBox>
+
+</HBox>
