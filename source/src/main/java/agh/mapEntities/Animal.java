@@ -15,6 +15,7 @@ public class Animal implements MapElement {
     private final Set<Animal> children = new HashSet<>();
     private int energy;
     private final Genes genes;
+    private int plantsEaten=0;
 
     public Animal(Vector2d position, int birthDate, int energy, Genes genes, MapDirection direction){
         this.position = position;
@@ -56,6 +57,10 @@ public class Animal implements MapElement {
 
     public void setPosition(Vector2d position) {this.position = position;}
     public void addChild(Animal animal){children.add(animal);}
+
+    public int getPlantsEaten() { return plantsEaten;}
+
+    public void setPlantsEaten(int plantsEaten) {this.plantsEaten = plantsEaten;}
 
     @Override
     public boolean equals(Object other) {

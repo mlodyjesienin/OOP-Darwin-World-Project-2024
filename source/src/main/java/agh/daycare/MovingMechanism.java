@@ -99,6 +99,7 @@ public abstract class MovingMechanism {
     abstract void topBottomHandler(Animal animal);
     private void kill(Animal animal){
         animal.setDeathDate(dayCare.getDayCount());
+        dayCare.statisticer.deathEvent(animal);
         deadAnimals.add(animal);
     }
 }

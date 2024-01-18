@@ -42,6 +42,8 @@ public abstract class ReproductionMechanism {
                     possibleParents.sort(betterAnimal);
                     for(int i = 0; i < possibleParents.size() - 1; i += 2) {
                         Animal child = reproduce(possibleParents.get(i), possibleParents.get(i + 1));
+                        possibleParents.get(i).addChild(child);
+                        possibleParents.get(i+1).addChild(child);
                         animalList.add(child);
                     }
                 }
@@ -66,6 +68,7 @@ public abstract class ReproductionMechanism {
         Animal child =  new Animal(dad.getPosition(),dayCare.getDayCount(),2*energyReproduce,newGenome(dad,mom), startDirection);
         dad.setEnergy(dad.getEnergy() - energyReproduce);
         mom.setEnergy(mom.getEnergy() - energyReproduce);
+        dayCare.statisticer.birthEvent();
         return child;
     }
 

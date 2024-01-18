@@ -14,11 +14,13 @@ public class PlantConsumptionMechanism {
     private final WorldMap worldMap;
     private final int energyGain;
     private final PlantGrowthMechanism plantGrowthMechanism;
+    private final DayCare dayCare;
     private final Comparator<Animal> betterAnimal = new BetterAnimal();
-    PlantConsumptionMechanism(WorldMap worldMap, int energyGain, PlantGrowthMechanism plantGrowthMechanism){
-        this.worldMap = worldMap;
-        this.energyGain = energyGain;
-        this.plantGrowthMechanism = plantGrowthMechanism;
+    PlantConsumptionMechanism(int energyGain,DayCare dayCare){
+        this.dayCare = dayCare;
+        this.worldMap = dayCare.worldMap;
+        this.energyGain= energyGain;
+        this.plantGrowthMechanism = dayCare.getPlantGrowthMechanism();
     }
 
     public void work(){
@@ -49,7 +51,9 @@ public class PlantConsumptionMechanism {
 
     void consume(Animal animal, Plant plant){
         animal.setEnergy(animal.getEnergy() + energyGain);
+        animal.setPlantsEaten(animal.getPlantsEaten() + 1);
         plantGrowthMechanism.addAvailablePosition(plant.getPosition());
+        dayCare.statisticer.plantEatenEvent();
     }
     private Animal resolveConflict(List<Animal> animalList) {
         Animal bestAnimal = animalList.get(0);
