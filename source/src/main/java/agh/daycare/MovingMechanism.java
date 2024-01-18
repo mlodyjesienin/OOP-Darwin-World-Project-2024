@@ -21,7 +21,7 @@ public abstract class MovingMechanism {
         this.energyLoss = energyLoss;
         this.dayCare = dayCare;
     }
-    void work(){
+    public void work(){
         Map<Vector2d, List<Animal>> animalsOnMap = worldMap.getAnimals();
         Map<Vector2d, List<Animal>> newAnimals = new HashMap<>();
         for(List<Animal> animalList : animalsOnMap.values()){

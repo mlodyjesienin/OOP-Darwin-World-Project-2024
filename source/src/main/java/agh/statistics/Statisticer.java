@@ -1,5 +1,6 @@
 package agh.statistics;
 
+import agh.daycare.BetterAnimal;
 import agh.daycare.DayCare;
 import agh.mapEntities.Animal;
 import agh.simple.MapDirection;
@@ -129,4 +130,16 @@ public class Statisticer{
         extendedStatistics();
     }
     public void stopExtendedStatistics(){extendedStatisticsSHOW = false;}
+    public Animal bestAnimal(List<Animal> animalList) {
+        BetterAnimal betterAnimal = new BetterAnimal();
+        Animal bestAnimal = animalList.get(0);
+        for (Animal animal : animalList) {
+            bestAnimal = switch (betterAnimal.reversed().compare(animal,bestAnimal)){
+                case 1 -> bestAnimal;
+                case -1 -> animal;
+                default -> bestAnimal;
+            };
+        }
+        return bestAnimal;
+    }
 }

@@ -39,7 +39,7 @@ public abstract class ReproductionMechanism {
             if(animalList.size() > 1){
                 List<Animal> possibleParents = checkRequirements(animalList);
                 if(possibleParents.size() > 1){
-                    possibleParents.sort(betterAnimal);
+                    possibleParents.sort(betterAnimal.reversed());
                     for(int i = 0; i < possibleParents.size() - 1; i += 2) {
                         Animal child = reproduce(possibleParents.get(i), possibleParents.get(i + 1));
                         possibleParents.get(i).addChild(child);
