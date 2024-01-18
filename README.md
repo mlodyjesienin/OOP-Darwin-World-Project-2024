@@ -17,10 +17,6 @@ Diagram klas:\
 - Poprawna implementacja wariantu mapy.
   (Metoda `sideWallHandler()` i metoda `topBottomHandler()` w klasie `MovingMechanismSpecial`.)
 
-- Implementacja statystyk.
-
-- Poprawne zrobienie metody `run()` w `Simulation`.
-
 - Implementacja UI.
 
 - (Ewentualnie) Przy mechanizmie znajdowania potomków konkretnego zwierzaka, można zamiast dla każdego zwierzaka osobny `HashSet`, zrobić graf skierowany (drzewo genealogiczne), co może być optymalniejsze.
