@@ -51,6 +51,12 @@ public class DayCare {
 
     public PlantGrowthMechanism getPlantGrowthMechanism() {return plantGrowthMechanism;}
 
+    public MovingMechanism getMovingMechanism() {return movingMechanism;}
+
+    public ReproductionMechanism getReproductionMechanism() {return reproductionMechanism;}
+
+    public PlantConsumptionMechanism getPlantConsumptionMechanism() {return plantConsumptionMechanism;}
+
     public void simulateDay(){
         dayCount++;
         movingMechanism.work(); //also includes killing mechanism and lowering energy

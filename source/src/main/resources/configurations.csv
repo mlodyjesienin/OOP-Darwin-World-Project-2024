@@ -1,1 +1,4 @@
 StableBig 20 20 40 20 15 Earth Normal 50 5 3 3 5 2 6 5 100
+SlowSingleAnimal[Portal] 7 7 1 5 1 Portals Special 30 5 3 3 5 2 15 10 600
+SlowSingleAnimal[Earth] 7 7 1 5 1 Earth Normal 30 5 3 3 5 2 15 10 600
+Adam&Eve 9 9 2 5 3 Earth Normal 60 15 10 1 2 5 20 10 500

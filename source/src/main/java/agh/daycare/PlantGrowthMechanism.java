@@ -54,7 +54,7 @@ public class PlantGrowthMechanism {
         }
     }
 
-    void work(){
+    public void work(){
         plants = worldMap.getPlants();
         Collections.shuffle(jungleAvailable);
         Collections.shuffle(desertAvailable);
