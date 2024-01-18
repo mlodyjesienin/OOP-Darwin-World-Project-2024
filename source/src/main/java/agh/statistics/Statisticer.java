@@ -13,12 +13,10 @@ public class Statisticer{
     public int deathCount = 0;
     public int currAliveCount;
     public int currPlantCount;
-    private int sumEnergy = 0;
-    private int sumChildren = 0;
     private int sumLifeLength = 0;
     public float averageLifeLength = 0;
     public float averageEnergy = 0;
-    public float avergeChildren = 0;
+    public float averageChildren = 0;
     public List<Integer> popularGenome = new ArrayList<>();
     public int availableSpace =0;
     public StalkedAnimal stalkedAnimal = null;
@@ -60,8 +58,8 @@ public class Statisticer{
         averageLifeLength = (float) sumLifeLength/deathCount;
     }
     private void extendedStatistics(){
-        sumEnergy = 0;
-        sumChildren = 0;
+        int sumEnergy = 0;
+        int sumChildren = 0;
         Map<List<MapDirection>, Integer> allGenomes= new HashMap<>();
         Map<Vector2d,List<Animal>> animals = dayCare.worldMap.getAnimals();
         for(List<Animal> animalList: animals.values()){
@@ -71,8 +69,8 @@ public class Statisticer{
                 addToMap(animal,allGenomes);
             }
         }
-        averageEnergy = (float) sumEnergy/currAliveCount;
-        avergeChildren = (float) sumChildren/currAliveCount;
+        averageEnergy = (float) sumEnergy /currAliveCount;
+        averageChildren = (float) sumChildren /currAliveCount;
         popularGenome = mostPopularGenome(allGenomes);
         availableSpace = findAvailablespace();
     }
@@ -125,7 +123,10 @@ public class Statisticer{
     public void startStalking(Animal animal){
         stalkedAnimal = new StalkedAnimal(animal,dayCare.getDayCount());
     }
+    public void stopStalking(){stalkedAnimal = null;}
     public void startExtendedStatistics(){
         extendedStatisticsSHOW = true;
+        extendedStatistics();
     }
+    public void stopExtendedStatistics(){extendedStatisticsSHOW = false;}
 }
