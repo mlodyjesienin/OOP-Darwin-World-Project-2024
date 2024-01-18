@@ -15,7 +15,7 @@ public class MovingMechanismNormal extends MovingMechanism {
         Vector2d newPosition;
         int boundaryX = boundary.upperCorner().getX();
         int currX = potentialPosition.getX();
-        if(currX == boundaryX){
+        if(currX == boundaryX+1){
             newPosition = new Vector2d(0, potentialPosition.getY());
         }
         else{

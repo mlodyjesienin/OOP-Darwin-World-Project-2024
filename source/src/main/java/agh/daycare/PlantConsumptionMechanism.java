@@ -58,7 +58,7 @@ public class PlantConsumptionMechanism {
     private Animal resolveConflict(List<Animal> animalList) {
         Animal bestAnimal = animalList.get(0);
         for (Animal animal : animalList) {
-            bestAnimal = switch (betterAnimal.compare(animal,bestAnimal)){
+            bestAnimal = switch (betterAnimal.reversed().compare(animal,bestAnimal)){
                 case 1 -> bestAnimal;
                 case -1 -> animal;
                 default -> bestAnimal;
