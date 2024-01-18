@@ -1,7 +1,5 @@
 package agh.simple;
 
-import agh.Vector2d;
-
 public enum MapDirection {
     NORTH,
     NORTHEAST,
@@ -76,5 +74,18 @@ public enum MapDirection {
         };
     }
 
+    //don't queestion my sanity. The whole genom idea being a direction sucks.
+    public int directionToInt() {
+        return switch (this) {
+            case NORTH -> 0;
+            case NORTHEAST -> 1;
+            case EAST -> 2;
+            case SOUTHEAST -> 3;
+            case SOUTH -> 4;
+            case SOUTHWEST -> 5;
+            case WEST ->  6;
+            case NORTHWEST ->  7;
 
+        };
+    }
 }

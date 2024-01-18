@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="window"
+      minWidth="1280.0" minHeight="720.0"
+      spacing="10" alignment="CENTER"
+      fx:controller="agh.ui.SimulationPresenter">
+
+    <VBox style="-fx-font-size: 14; -fx-font-weight: bold">
+        <VBox fx:id="mapStats" spacing="10" visible="false" managed="false">
+            <padding><Insets right="50" left="30" top="30" bottom="30"/></padding>
+            <Label fx:id="days" />
+            <Label fx:id="animalsCount" />
+            <Label fx:id="plantsCount" />
+            <Label fx:id="freeFields" />
+            <Label fx:id="commonGene" />
+            <Label fx:id="avgEnergy" />
+            <Label fx:id="avgLive" />
+            <Label fx:id="avgChildren" />
+        </VBox>
+        <VBox fx:id="animalStats" spacing="10" visible="false" managed="false">
+            <padding><Insets right="50" left="30" top="30" bottom="30"/></padding>
+            <Label fx:id="animalEnergy" />
+            <Label fx:id="eatenPlants" />
+            <Label fx:id="childCount" />
+            <Label fx:id="descendants" />
+            <Label fx:id="genes" />
+            <Label fx:id="currGene" />
+            <Label fx:id="age" />
+            <Label fx:id="deathDate" />
+        </VBox>
+    </VBox>
+    <GridPane fx:id="mapGrid" alignment="CENTER">
+        <StackPane/>
+    </GridPane>
+    <VBox alignment="BOTTOM_CENTER" spacing="25">
+        <padding><Insets left="20" bottom="25"/></padding>
+        <Button fx:id="showStats" text="Show stats" onAction="#onShowStatsClicked"
+                minWidth="150" minHeight="60" style="-fx-font-size: 16; -fx-font-weight: bold"/>
+        <Button fx:id="stopSimulation" text="PAUSE" onAction="#onSimulationStopClicked"
+                minWidth="150" minHeight="60" style="-fx-font-size: 16; -fx-font-weight: bold"/>
+    </VBox>
+</HBox>

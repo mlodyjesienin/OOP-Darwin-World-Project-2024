@@ -1,17 +1,17 @@
 package agh.initialization;
 
-import agh.*;
+import agh.daycare.GeneVariant;
+import agh.mapEntities.Animal;
+import agh.mapEntities.Genes;
 import agh.simple.Boundary;
+import agh.simple.MapDirection;
+import agh.simple.Vector2d;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AnimalGeneration {
     Map<Vector2d, List<Animal>> animals = new HashMap<>();
-    public AnimalGeneration(Boundary boundary,int startAnimals, int startEnergy, int geneSize,
-                            int geneVariant){
+    public AnimalGeneration(Boundary boundary,int startAnimals, int startEnergy, int geneSize, GeneVariant geneVariant){
         int maxWidth = boundary.upperCorner().getX();
         int maxHeight = boundary.upperCorner().getY();
         GeneGenerator geneGenerator = new GeneGenerator(geneVariant, geneSize);
@@ -26,9 +26,13 @@ public class AnimalGeneration {
 
     public void generate(RandomPositionGenerator randomPositionGenerator, GeneGenerator geneGenerator,
                          int startEnergy){
+        Random random = new Random();
+        List<MapDirection> allDirections = new ArrayList<>(List.of(MapDirection.NORTH,MapDirection.NORTHEAST,MapDirection.EAST,
+                MapDirection.SOUTHEAST,MapDirection.SOUTH,MapDirection.SOUTHWEST,MapDirection.WEST,MapDirection.NORTHWEST));
         for(Vector2d position: randomPositionGenerator){
             Genes genes = geneGenerator.generate();
-            Animal animal = new Animal(position,0,startEnergy,genes);
+            MapDirection startDirection = allDirections.get(random.nextInt(allDirections.size()));
+            Animal animal = new Animal(position,0,startEnergy,genes, startDirection);
             addAnimal(position,animal);
         }
 
